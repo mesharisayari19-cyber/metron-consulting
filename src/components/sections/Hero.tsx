@@ -36,7 +36,12 @@ export function Hero() {
             </p>
 
             <div className="mt-10 flex flex-col sm:flex-row gap-4">
-              <Button href="#about" variant="primary" size="lg" className="bg-white text-brand-800 hover:bg-brand-50">
+              <Button
+                href="#about"
+                variant="secondary"
+                size="lg"
+                className="border-0 shadow-executive hover:bg-brand-50"
+              >
                 {t.hero.ctaAbout}
               </Button>
               <Button
