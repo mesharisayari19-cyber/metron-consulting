@@ -1,0 +1,61 @@
+/**
+ * Icon mapping for brand-consistent iconography.
+ * Components import from lucide-react using these keys for CMS-ready swaps.
+ */
+import {
+  Shield,
+  Target,
+  Scale,
+  Award,
+  TrendingUp,
+  ClipboardCheck,
+  Building2,
+  AlertTriangle,
+  FileCheck,
+  Gauge,
+  FileText,
+  Eye,
+  Briefcase,
+  GraduationCap,
+  Download,
+  Mail,
+  MapPin,
+  Linkedin,
+  ChevronRight,
+  Menu,
+  X,
+  Globe,
+} from "lucide-react";
+
+export const brandIcons = {
+  values: {
+    trust: Shield,
+    precision: Target,
+    integrity: Scale,
+    quality: Award,
+    impact: TrendingUp,
+  },
+  services: {
+    internalAudit: ClipboardCheck,
+    governance: Building2,
+    riskManagement: AlertTriangle,
+    compliance: FileCheck,
+    performance: Gauge,
+    policies: FileText,
+    internalControl: Eye,
+    managementConsulting: Briefcase,
+    training: GraduationCap,
+  },
+  ui: {
+    download: Download,
+    mail: Mail,
+    mapPin: MapPin,
+    linkedin: Linkedin,
+    chevronRight: ChevronRight,
+    menu: Menu,
+    close: X,
+    globe: Globe,
+  },
+} as const;
+
+export type BrandIcons = typeof brandIcons;
