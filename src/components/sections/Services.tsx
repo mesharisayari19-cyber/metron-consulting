@@ -1,13 +1,16 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { services } from "@/data/services";
+import { ServiceDetailModal } from "@/components/services/ServiceDetailModal";
+import { services, type Service } from "@/data/services";
 import { useLocale } from "@/context/LocaleContext";
 import { brandIcons } from "@branding/icons";
 
 export function Services() {
   const { t, isArabic } = useLocale();
+  const [selected, setSelected] = useState<Service | null>(null);
   const Chevron = brandIcons.ui.chevronRight;
 
   return (
@@ -41,20 +44,24 @@ export function Services() {
                 <h3 className="text-xl md:text-2xl font-semibold text-brand-900 mb-4">
                   {isArabic ? service.title.ar : service.title.en}
                 </h3>
-                <p className="text-surface-600 leading-relaxed flex-1 text-base md:text-lg">
+                <p className="text-surface-600 leading-relaxed flex-1 text-base md:text-lg line-clamp-4">
                   {isArabic ? service.description.ar : service.description.en}
                 </p>
-                {service.slug && (
-                  <p className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-brand-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    {t.services.learnMore}
-                    <Chevron className="w-4 h-4 rtl:rotate-180" />
-                  </p>
-                )}
+                <button
+                  type="button"
+                  onClick={() => setSelected(service)}
+                  className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-brand-600 hover:text-brand-800 transition-colors text-start group-hover:opacity-100"
+                >
+                  {t.services.learnMore}
+                  <Chevron className="w-4 h-4 rtl:rotate-180" />
+                </button>
               </motion.article>
             );
           })}
         </div>
       </div>
+
+      <ServiceDetailModal service={selected} onClose={() => setSelected(null)} />
     </section>
   );
 }

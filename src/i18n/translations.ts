@@ -88,6 +88,8 @@ export const translations = {
       title: "خدماتنا",
       subtitle: "حلول استشارية متخصصة للمؤسسات والجهات التنظيمية",
       learnMore: "اعرف المزيد",
+      close: "إغلاق",
+      subServicesHeading: "الخدمات الفرعية",
     },
     team: {
       title: "فريقنا",
@@ -227,6 +229,8 @@ export const translations = {
       title: "Our Services",
       subtitle: "Specialized consulting solutions for institutions and regulatory environments",
       learnMore: "Learn more",
+      close: "Close",
+      subServicesHeading: "Sub-services",
     },
     team: {
       title: "Our Team",

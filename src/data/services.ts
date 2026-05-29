@@ -6,8 +6,7 @@ export interface Service {
   icon: LucideIcon;
   title: { ar: string; en: string };
   description: { ar: string; en: string };
-  /** Future: link to detail page */
-  slug?: string;
+  subServices: { ar: string[]; en: string[] };
 }
 
 export const services: Service[] = [
@@ -16,89 +15,131 @@ export const services: Service[] = [
     icon: brandIcons.services.internalAudit,
     title: { ar: "المراجعة الداخلية", en: "Internal Audit" },
     description: {
-      ar: "تصميم وتنفيذ برامج مراجعة داخلية فعّالة وفق المعايير المهنية.",
-      en: "Design and execution of effective internal audit programs per professional standards.",
+      ar: "نقدم خدمات مراجعة داخلية مستقلة تهدف إلى تعزيز فعالية الحوكمة والرقابة وإدارة المخاطر ورفع كفاءة الأداء المؤسسي.",
+      en: "We provide independent internal audit services aimed at strengthening governance, control, risk management, and institutional performance efficiency.",
     },
-    slug: "internal-audit",
+    subServices: {
+      ar: [
+        "بناء وتطوير إدارات المراجعة الداخلية",
+        "إعداد مواثيق وسياسات وإجراءات المراجعة الداخلية",
+        "إعداد خطط المراجعة المبنية على المخاطر",
+        "تنفيذ مهام المراجعة الداخلية",
+        "تقييم جودة أنشطة المراجعة الداخلية وتحسينها",
+      ],
+      en: [
+        "Building and developing internal audit departments",
+        "Developing internal audit charters, policies, and procedures",
+        "Preparing risk-based audit plans",
+        "Executing internal audit engagements",
+        "Assessing and improving the quality of internal audit activities",
+      ],
+    },
   },
   {
-    id: "governance",
+    id: "governance-control",
     icon: brandIcons.services.governance,
-    title: { ar: "الحوكمة", en: "Governance" },
+    title: { ar: "الحوكمة والرقابة", en: "Governance & Control" },
     description: {
-      ar: "تعزيز أطر الحوكمة المؤسسية ولوائح مجلس الإدارة.",
-      en: "Strengthening corporate governance frameworks and board charters.",
+      ar: "ندعم الجهات في تطوير بيئات حوكمة ورقابة أكثر فعالية من خلال وضوح الأدوار والمسؤوليات وتعزيز الضوابط على مستوى المؤسسة.",
+      en: "We support organizations in developing more effective governance and control environments through clear roles, responsibilities, and strengthened enterprise-wide controls.",
     },
-    slug: "governance",
+    subServices: {
+      ar: [
+        "تطوير أطر الحوكمة المؤسسية",
+        "تقييم فعالية الحوكمة والبيئة الرقابية",
+        "تقييم فعالية المجالس واللجان",
+        "تطوير مصفوفات الصلاحيات والمسؤوليات",
+        "إعداد اللوائح والأطر التنظيمية",
+        "تقييم فعالية الضوابط التشغيلية والإدارية والتقنية",
+        "تطوير البيئات الرقابية والتشغيلية",
+      ],
+      en: [
+        "Developing corporate governance frameworks",
+        "Assessing governance effectiveness and the control environment",
+        "Assessing board and committee effectiveness",
+        "Developing authority and responsibility matrices",
+        "Preparing regulations and organizational frameworks",
+        "Assessing operational, administrative, and IT control effectiveness",
+        "Developing control and operating environments",
+      ],
+    },
   },
   {
     id: "risk-management",
     icon: brandIcons.services.riskManagement,
     title: { ar: "إدارة المخاطر", en: "Risk Management" },
     description: {
-      ar: "تحديد وتقييم وإدارة المخاطر التشغيلية والاستراتيجية.",
-      en: "Identification, assessment, and management of operational and strategic risks.",
+      ar: "نساعد الجهات في بناء وتطوير منظومات فعالة لإدارة المخاطر بما يدعم تحقيق الأهداف المؤسسية والاستدامة.",
+      en: "We help organizations build and develop effective risk management systems that support strategic objectives and sustainability.",
     },
-    slug: "risk-management",
+    subServices: {
+      ar: [
+        "تصميم وتطوير أطر إدارة المخاطر المؤسسية",
+        "إعداد وتطوير سجلات المخاطر المؤسسية والتشغيلية",
+        "تطوير منهجيات تقييم وتحليل المخاطر",
+        "تحديد شهية المخاطر ومستويات التحمل",
+        "تطوير مؤشرات المخاطر الرئيسية",
+      ],
+      en: [
+        "Designing and developing enterprise risk management frameworks",
+        "Preparing and developing enterprise and operational risk registers",
+        "Developing risk assessment and analysis methodologies",
+        "Defining risk appetite and tolerance levels",
+        "Developing key risk indicators",
+      ],
+    },
   },
   {
     id: "compliance",
     icon: brandIcons.services.compliance,
-    title: { ar: "الالتزام", en: "Compliance" },
+    title: { ar: "الالتزام والامتثال", en: "Compliance" },
     description: {
-      ar: "ضمان الامتثال للأنظمة واللوائح والمتطلبات التنظيمية.",
-      en: "Ensuring adherence to laws, regulations, and regulatory requirements.",
+      ar: "ندعم الجهات في تعزيز الالتزام بالأنظمة والمتطلبات التنظيمية ورفع فعالية البيئة الرقابية بما يسهم في تقليل المخاطر التنظيمية وتحسين مستوى الامتثال المؤسسي.",
+      en: "We support organizations in strengthening regulatory compliance and control effectiveness, reducing regulatory risk, and improving institutional compliance maturity.",
     },
-    slug: "compliance",
+    subServices: {
+      ar: [
+        "تطوير الأطر الرقابية المرتبطة بالالتزام",
+        "تقييم الالتزام بالأنظمة والمتطلبات التنظيمية",
+        "تنفيذ تقييمات الفجوات التنظيمية",
+        "دعم إدارات ووظائف الالتزام",
+        "دعم المراجعات الرقابية والاختبارات الدورية",
+        "تطوير مصفوفات الالتزام والمتطلبات التنظيمية",
+      ],
+      en: [
+        "Developing compliance-related control frameworks",
+        "Assessing compliance with laws and regulatory requirements",
+        "Conducting regulatory gap assessments",
+        "Supporting compliance departments and functions",
+        "Supporting regulatory reviews and periodic testing",
+        "Developing compliance and regulatory requirement matrices",
+      ],
+    },
   },
   {
-    id: "performance",
-    icon: brandIcons.services.performance,
-    title: { ar: "تحسين الأداء", en: "Performance Improvement" },
-    description: {
-      ar: "رفع كفاءة العمليات وتحقيق أهداف الأداء المؤسسي.",
-      en: "Enhancing operational efficiency and achieving institutional performance goals.",
-    },
-    slug: "performance",
-  },
-  {
-    id: "policies",
-    icon: brandIcons.services.policies,
-    title: { ar: "السياسات والإجراءات", en: "Policies & Procedures" },
-    description: {
-      ar: "تطوير وتوثيق السياسات والإجراءات المؤسسية.",
-      en: "Development and documentation of institutional policies and procedures.",
-    },
-    slug: "policies",
-  },
-  {
-    id: "internal-control",
-    icon: brandIcons.services.internalControl,
-    title: { ar: "الرقابة الداخلية", en: "Internal Control" },
-    description: {
-      ar: "بناء وتقوية أنظمة الرقابة الداخلية الفعّالة.",
-      en: "Building and strengthening effective internal control systems.",
-    },
-    slug: "internal-control",
-  },
-  {
-    id: "management-consulting",
+    id: "institutional-consulting",
     icon: brandIcons.services.managementConsulting,
-    title: { ar: "الاستشارات الإدارية", en: "Management Consulting" },
-    description: {
-      ar: "دعم القيادات في اتخاذ القرارات الاستراتيجية المبنية على البيانات.",
-      en: "Supporting leadership in data-driven strategic decision-making.",
+    title: {
+      ar: "الاستشارات المؤسسية والتنظيمية",
+      en: "Institutional & Organizational Consulting",
     },
-    slug: "management-consulting",
-  },
-  {
-    id: "training",
-    icon: brandIcons.services.training,
-    title: { ar: "التدريب والتوعية", en: "Training & Awareness" },
     description: {
-      ar: "برامج تدريبية متخصصة في الحوكمة والمراجعة والالتزام.",
-      en: "Specialized training programs in governance, audit, and compliance.",
+      ar: "نقدم خدمات استشارية تدعم تطوير البيئات المؤسسية والتنظيمية وتحسن الكفاءة التشغيلية وترفع مستوى التكامل بين الهياكل والإجراءات والحوكمة المؤسسية.",
+      en: "We provide consulting services that support institutional and organizational development, improve operational efficiency, and enhance alignment across structures, processes, and corporate governance.",
     },
-    slug: "training",
+    subServices: {
+      ar: [
+        "تطوير الهياكل التنظيمية والنماذج التشغيلية",
+        "تطوير السياسات والإجراءات والأدلة التنظيمية",
+        "إعداد المواثيق والأطر التنظيمية",
+        "دعم مبادرات التحول والتطوير المؤسسي",
+      ],
+      en: [
+        "Developing organizational structures and operating models",
+        "Developing policies, procedures, and regulatory manuals",
+        "Preparing charters and organizational frameworks",
+        "Supporting transformation and institutional development initiatives",
+      ],
+    },
   },
 ];
