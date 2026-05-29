@@ -4,7 +4,6 @@
  */
 import {
   Shield,
-  Target,
   Scale,
   Award,
   TrendingUp,
@@ -29,11 +28,10 @@ import {
 
 export const brandIcons = {
   values: {
-    trust: Shield,
-    precision: Target,
+    professionalQuality: Award,
     integrity: Scale,
-    quality: Award,
-    impact: TrendingUp,
+    sustainableImpact: TrendingUp,
+    clientFocus: Shield,
   },
   services: {
     internalAudit: ClipboardCheck,

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120" fill="none">
+  <g opacity="0.08">
+    <rect x="8" y="72" width="12" height="40" fill="currentColor"/>
+    <rect x="28" y="52" width="12" height="60" fill="currentColor"/>
+    <rect x="48" y="32" width="12" height="80" fill="currentColor"/>
+    <path d="M72 32 L72 112 L84 112 L84 72 L96 32 Z" fill="currentColor"/>
+  </g>
+</svg>

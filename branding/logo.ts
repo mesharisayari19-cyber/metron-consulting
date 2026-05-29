@@ -1,28 +1,28 @@
 /**
- * Logo & wordmark configuration
- * Replace paths when official assets are ready.
+ * Official Metron logo assets — do not recreate in code
  */
 export const brandLogo = {
   wordmark: {
-    en: "Metron",
-    ar: "ميترون",
+    en: "METRON",
+    ar: "ميترون للاستشارات",
   },
   tagline: {
-    en: "Professional Consulting",
+    en: "CONSULTING",
     ar: "للاستشارات المهنية",
   },
   paths: {
-    /** Primary logo — place file at public/branding/logo.svg */
-    primary: "/branding/logo.svg",
-    /** Light variant for dark backgrounds */
-    light: "/branding/logo-light.svg",
-    /** Icon / favicon */
-    icon: "/branding/icon.svg",
+    /** Logo on light backgrounds (header when scrolled) */
+    horizontal: "/assets/brand/logo-horizontal.png",
+    /** Logo on dark backgrounds (header over hero, footer) */
+    horizontalLight: "/assets/brand/logo-horizontal-light.png",
+    stackedDark: "/assets/brand/logo-stacked-dark.png",
+    pattern: "/assets/brand/pattern.svg",
     favicon: "/favicon.ico",
   },
   dimensions: {
-    headerHeight: 40,
-    footerHeight: 36,
+    /** Display sizes for Next/Image intrinsic dimensions */
+    header: { width: 360, height: 96 },
+    footer: { width: 300, height: 80 },
   },
 } as const;
 

@@ -11,6 +11,15 @@ npm run dev
 
 افتح [http://localhost:3000](http://localhost:3000)
 
+### حل المشاكل الشائعة
+
+| المشكلة | الحل |
+|---------|------|
+| `EADDRINUSE` المنفذ 3000 مشغول | أوقف Node: `Get-Process node \| Stop-Process -Force` ثم `npm run dev` أو استخدم `npm run dev:3001` |
+| `npm start` لا يعمل | شغّل `npm run build` أولاً ثم `npm start` |
+| بناء فاشل / `_document` | `npm run rebuild` (يمسح كاش `.next`) |
+| صفحة بيضاء أو 500 | أوقف السيرفر القديم وأعد `npm run dev` |
+
 ## هيكل المشروع
 
 ```

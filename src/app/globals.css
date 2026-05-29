@@ -16,8 +16,42 @@
   }
 }
 
+@layer components {
+  .glass-header {
+    @apply bg-white/75 backdrop-blur-xl border-b border-white/20 shadow-[0_1px_0_rgba(27,61,92,0.06)];
+  }
+
+  .glass-header-dark {
+    @apply bg-brand-950/40 backdrop-blur-xl border-b border-white/5;
+  }
+
+  .section-executive {
+    @apply py-20 md:py-28 lg:py-32;
+  }
+
+  .card-premium {
+    @apply bg-white border border-surface-200/80 rounded-lg shadow-[0_1px_2px_rgba(15,34,53,0.04)] transition-all duration-500;
+  }
+
+  .card-premium:hover {
+    @apply shadow-[0_20px_50px_-12px_rgba(27,61,92,0.12)] border-brand-200/60 -translate-y-1;
+  }
+
+  .heading-display {
+    @apply text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-semibold tracking-tight text-brand-900 leading-[1.15];
+  }
+
+  .text-eyebrow {
+    @apply text-xs md:text-sm font-semibold tracking-[0.2em] uppercase text-brand-500;
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  .bg-brand-gradient {
+    background: linear-gradient(165deg, #0a1828 0%, #1b3d5c 45%, #2e5270 100%);
   }
 }

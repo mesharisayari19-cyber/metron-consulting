@@ -1,19 +1,21 @@
 import type { Metadata } from "next";
-import { Inter, IBM_Plex_Sans_Arabic } from "next/font/google";
+import { Montserrat, IBM_Plex_Sans_Arabic } from "next/font/google";
 import { LocaleProvider } from "@/context/LocaleContext";
 import { themeConfig } from "@theme/theme.config";
 import "./globals.css";
 
-const inter = Inter({
+const montserrat = Montserrat({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-sans",
   display: "swap",
+  weight: ["300", "400", "500", "600", "700"],
 });
 
-const ibmPlexArabic = IBM_Plex_Sans_Arabic({
+/** Neo Sans Arabic — licensed font; IBM Plex Sans Arabic as web fallback */
+const arabicFont = IBM_Plex_Sans_Arabic({
   subsets: ["arabic"],
   weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-ibm-plex-arabic",
+  variable: "--font-arabic",
   display: "swap",
 });
 
@@ -50,9 +52,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ar" dir="rtl" suppressHydrationWarning>
-      <body
-        className={`${inter.variable} ${ibmPlexArabic.variable} font-arabic`}
-      >
+      <body className={`${montserrat.variable} ${arabicFont.variable} font-arabic`}>
         <LocaleProvider>{children}</LocaleProvider>
       </body>
     </html>

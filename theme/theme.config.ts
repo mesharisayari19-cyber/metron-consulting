@@ -40,6 +40,8 @@ export const themeConfig = {
       ar: "المملكة العربية السعودية",
       en: "Kingdom of Saudi Arabia",
     },
+    /** Set company LinkedIn URL when available */
+    linkedin: "" as string,
   },
 
   seo: {

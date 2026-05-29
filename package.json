@@ -4,7 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:3001": "next dev -p 3001",
+    "clean": "node scripts/clean.mjs",
     "build": "next build",
+    "rebuild": "npm run clean && npm run build",
+    "prestart": "node scripts/prestart.mjs",
     "start": "next start",
     "lint": "next lint"
   },

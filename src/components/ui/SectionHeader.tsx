@@ -21,25 +21,27 @@ export function SectionHeader({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.5 }}
-      className={`mb-12 md:mb-16 ${centered ? "text-center" : ""}`}
+      className={`mb-14 md:mb-16 ${centered ? "text-center" : ""}`}
     >
       <div
-        className={`h-1 w-12 rounded-full mb-6 ${centered ? "mx-auto" : ""} ${
-          light ? "bg-white/60" : "bg-brand-600"
+        className={`h-1 w-14 rounded-full mb-6 ${centered ? "mx-auto" : ""} ${
+          light
+            ? "bg-gradient-to-r from-brand-400 to-brand-600"
+            : "bg-gradient-to-r from-brand-600 to-brand-400"
         }`}
       />
       <h2
-        className={`text-3xl md:text-4xl font-semibold tracking-tight ${
-          light ? "text-white" : "text-brand-900"
+        className={`heading-display ${centered ? "mx-auto max-w-3xl" : ""} ${
+          light ? "text-white" : ""
         }`}
       >
         {title}
       </h2>
       {subtitle && (
         <p
-          className={`mt-4 text-lg max-w-2xl ${
+          className={`mt-5 text-lg md:text-xl max-w-2xl leading-relaxed ${
             centered ? "mx-auto" : ""
-          } ${light ? "text-white/80" : "text-surface-600"}`}
+          } ${light ? "text-white/70" : "text-surface-600"}`}
         >
           {subtitle}
         </p>

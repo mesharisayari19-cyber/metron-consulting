@@ -21,19 +21,18 @@ interface ButtonProps {
 }
 
 const variants: Record<Variant, string> = {
-  primary:
-    "bg-brand-700 text-white hover:bg-brand-800 shadow-sm hover:shadow-card-hover",
+  primary: "bg-brand-700 text-white hover:bg-brand-800 shadow-executive",
   secondary:
     "bg-white text-brand-800 border border-brand-200 hover:border-brand-400 hover:bg-brand-50",
   outline:
-    "border-2 border-white/90 text-white hover:bg-white/10 backdrop-blur-sm",
+    "border-2 border-white/80 text-white hover:bg-white/10 backdrop-blur-sm",
   ghost: "text-brand-700 hover:bg-brand-50",
 };
 
 const sizes: Record<Size, string> = {
   sm: "px-4 py-2 text-sm",
   md: "px-6 py-3 text-base",
-  lg: "px-8 py-3.5 text-base",
+  lg: "px-8 py-3.5 text-base font-semibold",
 };
 
 export function Button({

@@ -11,11 +11,43 @@ export const translations = {
       contact: "تواصل معنا",
     },
     hero: {
-      title: "استشارات مهنية مبنية على الثقة",
+      eyebrow: "المراجعة الداخلية · الحوكمة · المخاطر · الالتزام",
+      title: "نحو أداء مؤسسي قابل للقياس وأثر مستدام",
       subtitle:
-        "ميترون للاستشارات المهنية — شريككم في المراجعة الداخلية، الحوكمة، إدارة المخاطر، والالتزام.",
+        "نساعد الجهات الحكومية وشبه الحكومية والخاصة على تعزيز الحوكمة وإدارة المخاطر والالتزام وتحسين الأداء من خلال حلول عملية مبنية على الدقة والثقة.",
       ctaAbout: "تعرف علينا",
-      ctaProfile: "تحميل بروفايل الشركة",
+      ctaProfile: "تحميل الملف التعريفي",
+    },
+    framework: {
+      measure: { title: "Measure", titleAr: "نقيس", description: "نقيس الواقع المؤسسي باستخدام منهجيات وأدوات احترافية." },
+      improve: { title: "Improve", titleAr: "نحسّن", description: "نحوّل النتائج إلى فرص تطوير عملية." },
+      impact: { title: "Impact", titleAr: "نُحقق الأثر", description: "نساعد الجهات على تحقيق أثر قابل للقياس ومستدام." },
+    },
+    whyMetron: {
+      title: "لماذا ميترون",
+      subtitle: "شريك مؤسسي يجمع بين الخبرة التنظيمية والدقة المهنية",
+      items: {
+        regulatory: {
+          title: "فهم تنظيمي عميق",
+          description: "خبرة عملية في البيئات الحكومية وشبه الحكومية والخاصة.",
+        },
+        data: {
+          title: "قرارات مبنية على البيانات",
+          description: "تحويل المعلومات إلى رؤى تدعم اتخاذ القرار.",
+        },
+        practical: {
+          title: "حلول قابلة للتطبيق",
+          description: "توصيات عملية قابلة للتنفيذ.",
+        },
+        standards: {
+          title: "أفضل الممارسات المهنية",
+          description: "منهجيات ومعايير عالمية.",
+        },
+        sustainable: {
+          title: "أثر مستدام",
+          description: "التركيز على النتائج القابلة للقياس.",
+        },
+      },
     },
     about: {
       title: "من نحن",
@@ -30,21 +62,36 @@ export const translations = {
         "تقديم خدمات استشارية ومهنية عالية الجودة تساعد الجهات على اتخاذ قرارات أفضل وتحقيق أثر مستدام.",
       valuesTitle: "قيمنا",
       values: {
-        trust: "الثقة",
-        precision: "الدقة",
-        integrity: "النزاهة",
-        quality: "الجودة",
-        impact: "الأثر",
+        professionalQuality: {
+          title: "الجودة المهنية",
+          statement:
+            "نركز على تقديم خدمات عالية الجودة تستند إلى الخبرة والمعرفة وأفضل الممارسات المهنية.",
+        },
+        integrity: {
+          title: "النزاهة",
+          statement:
+            "نعمل وفق أعلى المعايير المهنية والأخلاقية في جميع تعاملاتنا ومخرجاتنا.",
+        },
+        sustainableImpact: {
+          title: "الأثر المستدام",
+          statement:
+            "نؤمن بأن القيمة الحقيقية تتحقق من خلال حلول عملية تسهم في تطوير المؤسسات واستدامة أعمالها.",
+        },
+        clientFocus: {
+          title: "التركيز على العميل",
+          statement:
+            "نفهم احتياجات عملائنا ونسعى لتقديم حلول عملية تتناسب مع طبيعة بيئاتهم التنظيمية والتشغيلية.",
+        },
       },
     },
     services: {
       title: "خدماتنا",
-      subtitle: "حلول متكاملة لاحتياجاتكم المؤسسية",
+      subtitle: "حلول استشارية متخصصة للمؤسسات والجهات التنظيمية",
       learnMore: "اعرف المزيد",
     },
     team: {
       title: "فريقنا",
-      subtitle: "خبراء يقودون التميز المؤسسي",
+      subtitle: "قيادات وخبراء يقودون التميز المؤسسي",
       viewLinkedIn: "LinkedIn",
     },
     clients: {
@@ -54,8 +101,9 @@ export const translations = {
     contact: {
       title: "تواصل معنا",
       subtitle: "نرحب باستفساراتكم ونتطلع للتواصل معكم",
-      address: "العنوان",
+      address: "الموقع",
       email: "البريد الإلكتروني",
+      location: "المملكة العربية السعودية",
       form: {
         name: "الاسم",
         email: "البريد الإلكتروني",
@@ -69,6 +117,10 @@ export const translations = {
     footer: {
       rights: "جميع الحقوق محفوظة",
       tagline: "للاستشارات المهنية",
+      quickLinks: "روابط سريعة",
+      summary:
+        "شريككم المهني في المراجعة الداخلية، الحوكمة، إدارة المخاطر، والالتزام.",
+      linkedin: "LinkedIn",
     },
     common: {
       switchLang: "English",
@@ -85,11 +137,55 @@ export const translations = {
       contact: "Contact",
     },
     hero: {
-      title: "Professional Consulting Built on Trust",
+      eyebrow: "Internal Audit · Governance · Risk · Compliance",
+      title: "Toward Measurable Performance and Sustainable Impact",
       subtitle:
-        "Metron Professional Consulting — your partner in internal audit, governance, risk management, and compliance.",
+        "We support government, semi-government, and private sector entities in strengthening governance, risk management, compliance, and performance through practical solutions built on precision and trust.",
       ctaAbout: "About Us",
       ctaProfile: "Download Company Profile",
+    },
+    framework: {
+      measure: {
+        title: "Measure",
+        titleAr: "Measure",
+        description: "We assess institutional reality using professional methodologies and tools.",
+      },
+      improve: {
+        title: "Improve",
+        titleAr: "Improve",
+        description: "We translate findings into practical development opportunities.",
+      },
+      impact: {
+        title: "Impact",
+        titleAr: "Impact",
+        description: "We help organizations achieve measurable, sustainable impact.",
+      },
+    },
+    whyMetron: {
+      title: "Why Metron",
+      subtitle: "An institutional partner combining regulatory expertise with professional precision",
+      items: {
+        regulatory: {
+          title: "Deep Regulatory Understanding",
+          description: "Practical experience across government, semi-government, and private sectors.",
+        },
+        data: {
+          title: "Data-Driven Decisions",
+          description: "Transforming information into insights that support decision-making.",
+        },
+        practical: {
+          title: "Actionable Solutions",
+          description: "Practical, implementable recommendations.",
+        },
+        standards: {
+          title: "Professional Best Practices",
+          description: "Global methodologies and standards.",
+        },
+        sustainable: {
+          title: "Sustainable Impact",
+          description: "Focus on measurable, lasting results.",
+        },
+      },
     },
     about: {
       title: "About Us",
@@ -105,21 +201,36 @@ export const translations = {
         "Delivering high-quality consulting and professional services that help organizations make better decisions and achieve sustainable impact.",
       valuesTitle: "Our Values",
       values: {
-        trust: "Trust",
-        precision: "Precision",
-        integrity: "Integrity",
-        quality: "Quality",
-        impact: "Impact",
+        professionalQuality: {
+          title: "Professional Quality",
+          statement:
+            "We focus on delivering high-quality services grounded in expertise, knowledge, and professional best practices.",
+        },
+        integrity: {
+          title: "Integrity",
+          statement:
+            "We operate in accordance with the highest professional and ethical standards in all our dealings and deliverables.",
+        },
+        sustainableImpact: {
+          title: "Sustainable Impact",
+          statement:
+            "We believe true value is achieved through practical solutions that contribute to institutional development and business sustainability.",
+        },
+        clientFocus: {
+          title: "Client Focus",
+          statement:
+            "We understand our clients' needs and strive to provide practical solutions suited to their organizational and operational environments.",
+        },
       },
     },
     services: {
       title: "Our Services",
-      subtitle: "Integrated solutions for your institutional needs",
+      subtitle: "Specialized consulting solutions for institutions and regulatory environments",
       learnMore: "Learn more",
     },
     team: {
       title: "Our Team",
-      subtitle: "Experts driving institutional excellence",
+      subtitle: "Leaders and experts driving institutional excellence",
       viewLinkedIn: "LinkedIn",
     },
     clients: {
@@ -129,8 +240,9 @@ export const translations = {
     contact: {
       title: "Contact Us",
       subtitle: "We welcome your inquiries and look forward to connecting",
-      address: "Address",
+      address: "Location",
       email: "Email",
+      location: "Kingdom of Saudi Arabia",
       form: {
         name: "Name",
         email: "Email",
@@ -144,6 +256,10 @@ export const translations = {
     footer: {
       rights: "All rights reserved",
       tagline: "Professional Consulting",
+      quickLinks: "Quick Links",
+      summary:
+        "Your professional partner in internal audit, governance, risk management, and compliance.",
+      linkedin: "LinkedIn",
     },
     common: {
       switchLang: "العربية",
