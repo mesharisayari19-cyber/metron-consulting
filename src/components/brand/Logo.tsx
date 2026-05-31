@@ -18,8 +18,8 @@ interface LogoProps {
 const headerBox =
   "block h-11 sm:h-12 md:h-[3.25rem] lg:h-14 w-[240px] sm:w-[300px] md:w-[360px] lg:w-[420px]";
 
-const footerSize =
-  "h-12 sm:h-14 md:h-16 w-auto min-w-[100px] max-w-[200px] sm:max-w-[240px] md:max-w-[260px]";
+const footerBox =
+  "block h-10 sm:h-11 md:h-12 w-[200px] sm:w-[240px] md:w-[280px] lg:w-[320px]";
 
 export function Logo({
   variant = "horizontal",
@@ -32,13 +32,9 @@ export function Logo({
   const isHeader = size === "header";
   const isColored = variant === "horizontal";
 
-  const src = isHeader
-    ? isColored
-      ? brandLogo.paths.horizontal
-      : brandLogo.paths.horizontalLight
-    : isColored
-      ? brandLogo.paths.stackedColored
-      : brandLogo.paths.stackedWhite;
+  const src = isColored
+    ? brandLogo.paths.horizontal
+    : brandLogo.paths.horizontalLight;
 
   const img = (
     <Image
@@ -47,13 +43,13 @@ export function Logo({
       width={dims.width}
       height={dims.height}
       className={`object-contain object-start bg-transparent ${
-        isHeader ? `${headerBox} ${className}` : `${footerSize} ${className}`
+        isHeader ? `${headerBox} ${className}` : `${footerBox} ${className}`
       }`}
       priority={priority}
       sizes={
         isHeader
           ? "(max-width: 640px) 240px, (max-width: 1024px) 360px, 420px"
-          : "(max-width: 768px) 180px, 260px"
+          : "(max-width: 768px) 240px, 320px"
       }
     />
   );

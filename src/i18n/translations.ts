@@ -117,6 +117,7 @@ export const translations = {
       mapPlaceholder: "خريطة الموقع — قابلة للإضافة",
     },
     footer: {
+      copyright: "© {year} جميع الحقوق محفوظة ميترون للاستشارات",
       rights: "جميع الحقوق محفوظة",
       tagline: "للاستشارات المهنية",
       quickLinks: "روابط سريعة",
@@ -258,6 +259,7 @@ export const translations = {
       mapPlaceholder: "Location map — coming soon",
     },
     footer: {
+      copyright: "© {year} Metron Consulting. All rights reserved.",
       rights: "All rights reserved",
       tagline: "Professional Consulting",
       quickLinks: "Quick Links",

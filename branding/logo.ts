@@ -27,7 +27,7 @@ export const brandLogo = {
   dimensions: {
     /** Horizontal wordmark ~4:1 aspect ratio */
     header: { width: 480, height: 120 },
-    footer: { width: 300, height: 80 },
+    footer: { width: 320, height: 80 },
   },
 } as const;
 

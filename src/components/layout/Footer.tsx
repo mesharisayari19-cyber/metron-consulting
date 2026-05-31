@@ -7,8 +7,9 @@ import { useLocale } from "@/context/LocaleContext";
 import { Linkedin } from "lucide-react";
 
 export function Footer() {
-  const { t } = useLocale();
+  const { t, dir } = useLocale();
   const year = new Date().getFullYear();
+  const copyright = t.footer.copyright.replace("{year}", String(year));
 
   const links = [
     { href: "#about", label: t.nav.about },
@@ -73,9 +74,11 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-white/40">
-          <p>© {year} Metron Consulting. {t.footer.rights}</p>
-          <p className="tracking-widest uppercase text-xs">{t.footer.tagline}</p>
+        <div
+          className="mt-14 pt-8 border-t border-white/10 text-sm text-white/40 text-center sm:text-start"
+          dir={dir}
+        >
+          <p>{copyright}</p>
         </div>
       </div>
     </footer>
