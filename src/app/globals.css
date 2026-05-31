@@ -3,8 +3,37 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    /* Header + logo — tune together */
+    --header-height: 4.5rem; /* 72px */
+    --header-logo-height: 2.75rem; /* 44px */
+    --header-logo-max-width: 240px;
+  }
+
+  @media (min-width: 640px) {
+    :root {
+      --header-logo-max-width: 300px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    :root {
+      --header-height: 5rem; /* 80px */
+      --header-logo-height: 3.25rem; /* 52px */
+      --header-logo-max-width: 360px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    :root {
+      --header-logo-height: 3.5rem; /* 56px */
+      --header-logo-max-width: 420px;
+    }
+  }
+
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--header-height) + 1rem);
   }
 
   body {
@@ -53,5 +82,15 @@
 
   .bg-brand-gradient {
     background: linear-gradient(165deg, #0a1828 0%, #1b3d5c 45%, #2e5270 100%);
+  }
+
+  .hero-offset {
+    padding-top: calc(var(--header-height) + 1.75rem);
+  }
+
+  @media (min-width: 768px) {
+    .hero-offset {
+      padding-top: calc(var(--header-height) + 2.25rem);
+    }
   }
 }
