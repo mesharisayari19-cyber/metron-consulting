@@ -110,7 +110,7 @@ export const translations = {
     },
     team: {
       title: "فريقنا",
-      subtitle: "فريق استشاري يجمع بين المعرفة المهنية والخبرة التطبيقية",
+      subtitle: "فريق استشاري يجمع بين المعرفة والخبرة المهنية",
       viewLinkedIn: "LinkedIn",
     },
     clients: {
