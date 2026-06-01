@@ -29,7 +29,7 @@ export function Hero() {
       <div className="absolute inset-0 bg-brand-950/60" aria-hidden />
 
       {/* Layer 3 — Metron pattern (very subtle) */}
-      <BrandPattern opacity={0.07} />
+      <BrandPattern opacity={0.035} />
 
       <div
         className="pointer-events-none absolute bottom-0 inset-x-0 h-40 bg-gradient-to-t from-brand-950 to-transparent"

@@ -52,16 +52,23 @@ export const translations = {
     about: {
       title: "من نحن",
       subtitle: "خبرة مؤسسية — أثر مستدام",
-      overviewTitle: "نبذة عن الشركة",
-      overview:
-        "ميتـرون للاستشارات المهنية هي شركة متخصصة في خدمات المراجعة الداخلية، الحوكمة، إدارة المخاطر، الالتزام، والاستشارات الإدارية. نعمل على دعم الجهات الحكومية وشبه الحكومية والخاصة من خلال حلول عملية مبنية على الدقة والثقة وفهم البيئة التنظيمية.",
-      visionTitle: "الرؤية",
-      vision: "أن نكون الشريك المهني الموثوق في تعزيز الحوكمة وتحسين الأداء المؤسسي.",
-      missionTitle: "الرسالة",
-      mission:
-        "تقديم خدمات استشارية ومهنية عالية الجودة تساعد الجهات على اتخاذ قرارات أفضل وتحقيق أثر مستدام.",
-      valuesTitle: "قيمنا",
-      values: {
+      cards: {
+        overview: {
+          text: "ميترون للاستشارات المهنية شركة سعودية متخصصة في خدمات المراجعة الداخلية والحوكمة وإدارة المخاطر والالتزام.",
+        },
+        vision: {
+          title: "الرؤية",
+          text: "أن نكون الشريك المهني الموثوق في تعزيز الحوكمة وتحسين الأداء المؤسسي.",
+        },
+        mission: {
+          title: "الرسالة",
+          text: "تقديم خدمات استشارية ومهنية عالية الجودة تساعد الجهات على اتخاذ قرارات أفضل وتحقيق أثر مستدام.",
+        },
+        values: {
+          title: "القيم",
+        },
+      },
+      valueItems: {
         professionalQuality: {
           title: "الجودة المهنية",
           statement:
@@ -82,6 +89,16 @@ export const translations = {
           statement:
             "نفهم احتياجات عملائنا ونسعى لتقديم حلول عملية تتناسب مع طبيعة بيئاتهم التنظيمية والتشغيلية.",
         },
+      },
+      whyMetronTab: {
+        title: "لماذا ميترون",
+        points: [
+          "فهم عميق للبيئات التنظيمية والرقابية.",
+          "خبرات عملية في القطاعات الحكومية وشبه الحكومية والخاصة.",
+          "رؤى مستقلة تدعم وضوح اتخاذ القرار.",
+          "حلول عملية قابلة للتطبيق ومرتبطة بالواقع التشغيلي.",
+          "التزام بأفضل الممارسات والمعايير المهنية.",
+        ],
       },
     },
     services: {
@@ -193,17 +210,23 @@ export const translations = {
     about: {
       title: "About Us",
       subtitle: "Institutional expertise — sustainable impact",
-      overviewTitle: "Company Overview",
-      overview:
-        "Metron Professional Consulting is a specialized firm in internal audit, governance, risk management, compliance, and management consulting. We support government, semi-government, and private sector entities through practical solutions built on precision, trust, and regulatory understanding.",
-      visionTitle: "Vision",
-      vision:
-        "To be the trusted professional partner in strengthening governance and improving institutional performance.",
-      missionTitle: "Mission",
-      mission:
-        "Delivering high-quality consulting and professional services that help organizations make better decisions and achieve sustainable impact.",
-      valuesTitle: "Our Values",
-      values: {
+      cards: {
+        overview: {
+          text: "Metron Professional Consulting is a Saudi firm specialized in internal audit, governance, risk management, and compliance services.",
+        },
+        vision: {
+          title: "Vision",
+          text: "To be the trusted professional partner in strengthening governance and improving institutional performance.",
+        },
+        mission: {
+          title: "Mission",
+          text: "Delivering high-quality consulting and professional services that help organizations make better decisions and achieve sustainable impact.",
+        },
+        values: {
+          title: "Values",
+        },
+      },
+      valueItems: {
         professionalQuality: {
           title: "Professional Quality",
           statement:
@@ -224,6 +247,16 @@ export const translations = {
           statement:
             "We understand our clients' needs and strive to provide practical solutions suited to their organizational and operational environments.",
         },
+      },
+      whyMetronTab: {
+        title: "Why Metron",
+        points: [
+          "Deep understanding of regulatory and control environments.",
+          "Practical experience across government, semi-government, and private sectors.",
+          "Independent insights that support clear decision-making.",
+          "Practical, implementable solutions aligned with operational reality.",
+          "Commitment to professional best practices and standards.",
+        ],
       },
     },
     services: {

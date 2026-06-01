@@ -1,17 +1,14 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { ServiceDetailModal } from "@/components/services/ServiceDetailModal";
-import { services, type Service } from "@/data/services";
+import { services } from "@/data/services";
 import { useLocale } from "@/context/LocaleContext";
-import { brandIcons } from "@branding/icons";
+
+const iconStroke = 1.25;
 
 export function Services() {
   const { t, isArabic } = useLocale();
-  const [selected, setSelected] = useState<Service | null>(null);
-  const Chevron = brandIcons.ui.chevronRight;
 
   return (
     <section id="services" className="section-executive bg-white">
@@ -21,6 +18,8 @@ export function Services() {
         <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
           {services.map((service, index) => {
             const Icon = service.icon;
+            const subList = isArabic ? service.subServices.ar : service.subServices.en;
+
             return (
               <motion.article
                 key={service.id}
@@ -28,40 +27,41 @@ export function Services() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ delay: (index % 2) * 0.08, duration: 0.45 }}
-                className="group card-premium p-8 md:p-10 lg:p-12 flex flex-col min-h-[280px]"
+                className="group card-premium p-8 md:p-10 lg:p-12 flex flex-col"
               >
-                <div className="flex items-start justify-between gap-4 mb-8">
-                  <div className="w-14 h-14 rounded-lg bg-brand-50 border border-brand-100 flex items-center justify-center group-hover:bg-brand-700 group-hover:border-brand-700 transition-colors duration-500">
-                    <Icon
-                      className="w-7 h-7 text-brand-700 group-hover:text-white transition-colors duration-500"
-                      strokeWidth={1.25}
-                    />
-                  </div>
-                  <span className="text-xs font-bold text-brand-400 tracking-widest">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
+                <div className="w-14 h-14 rounded-lg bg-brand-50 border border-brand-100 flex items-center justify-center mb-6 group-hover:bg-brand-700 group-hover:border-brand-700 transition-colors duration-500">
+                  <Icon
+                    className="w-7 h-7 text-brand-700 group-hover:text-white transition-colors duration-500"
+                    strokeWidth={iconStroke}
+                  />
                 </div>
                 <h3 className="text-xl md:text-2xl font-semibold text-brand-900 mb-4">
                   {isArabic ? service.title.ar : service.title.en}
                 </h3>
-                <p className="text-surface-600 leading-relaxed flex-1 text-base md:text-lg line-clamp-4">
+                <p className="text-surface-600 leading-relaxed text-base md:text-lg mb-8">
                   {isArabic ? service.description.ar : service.description.en}
                 </p>
-                <button
-                  type="button"
-                  onClick={() => setSelected(service)}
-                  className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-brand-600 hover:text-brand-800 transition-colors text-start group-hover:opacity-100"
-                >
-                  {t.services.learnMore}
-                  <Chevron className="w-4 h-4 rtl:rotate-180" />
-                </button>
+                <div className="mt-auto pt-6 border-t border-surface-100">
+                  <h4 className="text-sm font-bold tracking-widest uppercase text-brand-600 mb-4">
+                    {t.services.subServicesHeading}
+                  </h4>
+                  <ul className="space-y-2.5">
+                    {subList.map((item) => (
+                      <li
+                        key={item}
+                        className="flex gap-3 text-surface-700 leading-relaxed text-sm md:text-base"
+                      >
+                        <span className="w-1.5 h-1.5 rounded-full bg-brand-500 mt-2.5 shrink-0" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </motion.article>
             );
           })}
         </div>
       </div>
-
-      <ServiceDetailModal service={selected} onClose={() => setSelected(null)} />
     </section>
   );
 }

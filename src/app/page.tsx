@@ -3,7 +3,6 @@
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Hero } from "@/components/sections/Hero";
-import { WhyMetron } from "@/components/sections/WhyMetron";
 import { About } from "@/components/sections/About";
 import { Services } from "@/components/sections/Services";
 import { Team } from "@/components/sections/Team";
@@ -32,7 +31,6 @@ export default function HomePage() {
       <Header />
       <main>
         <Hero />
-        <WhyMetron />
         <About />
         <Services />
         <Team />

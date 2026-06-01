@@ -1,3 +1,5 @@
+"use client";
+
 /**
  * Icon mapping for brand-consistent iconography.
  * Components import from lucide-react using these keys for CMS-ready swaps.

@@ -1,3 +1,5 @@
+"use client";
+
 import type { LucideIcon } from "lucide-react";
 import { brandIcons } from "@branding/icons";
 
@@ -38,7 +40,7 @@ export const services: Service[] = [
   {
     id: "governance-control",
     icon: brandIcons.services.governance,
-    title: { ar: "الحوكمة والرقابة", en: "Governance & Control" },
+    title: { ar: "الحوكمة والرقابة", en: "Governance & Oversight" },
     description: {
       ar: "ندعم الجهات في تطوير بيئات حوكمة ورقابة أكثر فعالية من خلال وضوح الأدوار والمسؤوليات وتعزيز الضوابط على مستوى المؤسسة.",
       en: "We support organizations in developing more effective governance and control environments through clear roles, responsibilities, and strengthened enterprise-wide controls.",
@@ -92,7 +94,7 @@ export const services: Service[] = [
   {
     id: "compliance",
     icon: brandIcons.services.compliance,
-    title: { ar: "الالتزام والامتثال", en: "Compliance" },
+    title: { ar: "الالتزام والامتثال", en: "Compliance & Regulatory Adherence" },
     description: {
       ar: "ندعم الجهات في تعزيز الالتزام بالأنظمة والمتطلبات التنظيمية ورفع فعالية البيئة الرقابية بما يسهم في تقليل المخاطر التنظيمية وتحسين مستوى الامتثال المؤسسي.",
       en: "We support organizations in strengthening regulatory compliance and control effectiveness, reducing regulatory risk, and improving institutional compliance maturity.",

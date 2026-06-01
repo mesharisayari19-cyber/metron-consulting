@@ -1,6 +1,5 @@
 "use client";
 
-import { brandIcons } from "@branding/icons";
 import { motion } from "framer-motion";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { teamMembers } from "@/data/team";
@@ -16,7 +15,6 @@ function getInitials(name: string): string {
 
 export function Team() {
   const { t, isArabic } = useLocale();
-  const LinkedInIcon = brandIcons.ui.linkedin;
 
   return (
     <section id="team" className="section-executive bg-surface-50">
@@ -41,23 +39,14 @@ export function Team() {
                       {getInitials(displayName)}
                     </span>
                   </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-brand-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  {member.linkedin && (
-                    <a
-                      href={member.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="absolute bottom-4 inset-x-4 flex items-center justify-center gap-2 py-2.5 bg-white/95 text-brand-800 text-sm font-semibold rounded-md opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500"
-                    >
-                      <LinkedInIcon className="w-4 h-4" />
-                      {t.team.viewLinkedIn}
-                    </a>
-                  )}
                 </div>
                 <div className="p-6 md:p-7 border-t border-surface-100">
                   <h3 className="text-lg font-semibold text-brand-900">{displayName}</h3>
                   <p className="text-brand-600 text-sm font-medium mt-1.5 tracking-wide">
-                    {isArabic ? member.role.ar : member.role.en}
+                    {isArabic ? member.credentials.ar : member.credentials.en}
+                  </p>
+                  <p className="text-brand-500/90 text-xs font-semibold mt-2 tracking-wide">
+                    {isArabic ? member.yearsExperience.ar : member.yearsExperience.en}
                   </p>
                   <p className="text-surface-600 text-sm mt-4 leading-relaxed line-clamp-4">
                     {isArabic ? member.bio.ar : member.bio.en}

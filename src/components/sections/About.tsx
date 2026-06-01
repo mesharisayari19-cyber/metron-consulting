@@ -1,87 +1,171 @@
 "use client";
 
-import { brandIcons } from "@branding/icons";
-import { motion } from "framer-motion";
+import { useState } from "react";
+import {
+  Eye,
+  Target,
+  Gem,
+  Sparkles,
+  Award,
+  Scale,
+  TrendingUp,
+  Users,
+} from "lucide-react";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { useLocale } from "@/context/LocaleContext";
-import { valueKeys } from "@/data/values";
+
+const tabKeys = ["vision", "mission", "values", "whyMetron"] as const;
+type TabKey = (typeof tabKeys)[number];
+
+const tabIcons = {
+  vision: Eye,
+  mission: Target,
+  values: Gem,
+  whyMetron: Sparkles,
+};
+
+const valueKeys = [
+  "professionalQuality",
+  "integrity",
+  "sustainableImpact",
+  "clientFocus",
+] as const;
+
+const valueIcons = {
+  professionalQuality: Award,
+  integrity: Scale,
+  sustainableImpact: TrendingUp,
+  clientFocus: Users,
+};
+
+const iconStroke = 1.25;
 
 export function About() {
   const { t } = useLocale();
-  const icons = brandIcons.values;
+  const [active, setActive] = useState<TabKey>("vision");
+
+  const about = t.about;
+  if (!about?.cards) return null;
+
+  const ActiveIcon = tabIcons[active];
+
+  const tabLabel = (key: TabKey) => {
+    if (key === "whyMetron") return about.whyMetronTab.title;
+    return about.cards[key].title;
+  };
 
   return (
     <section id="about" className="section-executive bg-surface-50">
+      <div id="why-metron" className="scroll-mt-24 h-0" aria-hidden="true" />
       <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeader title={t.about.title} subtitle={t.about.subtitle} />
+        <SectionHeader title={about.title} subtitle={about.subtitle} />
 
-        <div className="grid lg:grid-cols-12 gap-8 mb-20">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="lg:col-span-7 card-premium p-8 md:p-10 lg:p-12"
-          >
-            <span className="text-eyebrow text-brand-600 mb-4 block">
-              {t.about.overviewTitle}
-            </span>
-            <p className="text-lg md:text-xl text-surface-700 leading-relaxed">
-              {t.about.overview}
-            </p>
-          </motion.div>
+        {about.cards.overview?.text && (
+          <p className="text-surface-700 leading-relaxed text-base md:text-lg max-w-3xl mx-auto text-center mb-10 md:mb-12">
+            {about.cards.overview.text}
+          </p>
+        )}
 
-          <div className="lg:col-span-5 flex flex-col gap-6">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="card-premium p-8 flex-1 border-brand-200"
-            >
-              <h3 className="text-sm font-bold tracking-widest uppercase text-brand-600 mb-3">
-                {t.about.visionTitle}
-              </h3>
-              <p className="text-surface-700 leading-relaxed text-lg">{t.about.vision}</p>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.15 }}
-              className="card-premium p-8 flex-1"
-            >
-              <h3 className="text-sm font-bold tracking-widest uppercase text-brand-600 mb-3">
-                {t.about.missionTitle}
-              </h3>
-              <p className="text-surface-700 leading-relaxed text-lg">{t.about.mission}</p>
-            </motion.div>
-          </div>
+        <div
+          className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 md:mb-10"
+          role="tablist"
+          aria-label={about.title}
+        >
+          {tabKeys.map((key) => {
+            const Icon = tabIcons[key];
+            const isActive = active === key;
+
+            return (
+              <button
+                key={key}
+                type="button"
+                role="tab"
+                aria-selected={isActive}
+                aria-controls={`about-panel-${key}`}
+                id={`about-tab-${key}`}
+                onClick={() => setActive(key)}
+                className={`inline-flex items-center gap-2 px-4 py-2.5 sm:px-5 sm:py-3 rounded-full text-sm font-semibold border transition-all duration-300 ${
+                  isActive
+                    ? "bg-brand-900 text-white border-brand-900 shadow-[0_4px_14px_rgba(27,61,92,0.2)]"
+                    : "bg-white text-brand-800 border-surface-200 hover:border-brand-200 hover:bg-brand-50/50"
+                }`}
+              >
+                <Icon
+                  className={`w-4 h-4 shrink-0 ${isActive ? "text-white" : "text-brand-600"}`}
+                  strokeWidth={iconStroke}
+                />
+                <span className="whitespace-nowrap">{tabLabel(key)}</span>
+              </button>
+            );
+          })}
         </div>
 
-        <div>
-          <h3 className="heading-display text-center mb-14">{t.about.valuesTitle}</h3>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
-            {valueKeys.map((key, index) => {
-              const Icon = icons[key];
-              const value = t.about.values[key];
-              return (
-                <motion.div
-                  key={key}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.06 }}
-                  className="card-premium p-6 md:p-8 text-center group"
-                >
-                  <div className="w-16 h-16 mx-auto rounded-full bg-brand-50 border border-brand-100 flex items-center justify-center mb-5 group-hover:bg-brand-100 transition-colors">
-                    <Icon className="w-8 h-8 text-brand-700" strokeWidth={1.25} />
-                  </div>
-                  <h4 className="text-lg font-semibold text-brand-900 mb-2">{value.title}</h4>
-                  <p className="text-sm text-surface-600 leading-relaxed">{value.statement}</p>
-                </motion.div>
-              );
-            })}
+        <div
+          key={active}
+          id={`about-panel-${active}`}
+          role="tabpanel"
+          aria-labelledby={`about-tab-${active}`}
+          className="card-premium p-8 md:p-10 lg:p-12 transition-opacity duration-300"
+        >
+          <div className="flex items-start gap-4 mb-6">
+            <div className="w-12 h-12 rounded-lg bg-brand-50 border border-brand-100 flex items-center justify-center shrink-0">
+              <ActiveIcon className="w-6 h-6 text-brand-700" strokeWidth={iconStroke} />
+            </div>
+            <div className="flex items-center gap-3 min-w-0 pt-1">
+              <span
+                className="w-1 self-stretch min-h-[1.75rem] rounded-full bg-brand-600 shrink-0"
+                aria-hidden
+              />
+              <h3 className="text-xl md:text-2xl font-semibold text-brand-900">
+                {tabLabel(active)}
+              </h3>
+            </div>
           </div>
+
+          {active === "vision" && (
+            <p className="text-surface-700 leading-relaxed text-base md:text-lg max-w-3xl">
+              {about.cards.vision.text}
+            </p>
+          )}
+
+          {active === "mission" && (
+            <p className="text-surface-700 leading-relaxed text-base md:text-lg max-w-3xl">
+              {about.cards.mission.text}
+            </p>
+          )}
+
+          {active === "values" && about.valueItems && (
+            <div className="grid sm:grid-cols-2 gap-4 md:gap-5">
+              {valueKeys.map((key) => {
+                const item = about.valueItems?.[key];
+                if (!item) return null;
+                const ValueIcon = valueIcons[key];
+                return (
+                  <article
+                    key={key}
+                    className="rounded-lg border border-surface-200/80 bg-surface-50/50 p-5 md:p-6 text-center"
+                  >
+                    <div className="w-11 h-11 mx-auto rounded-full bg-brand-50 border border-brand-100 flex items-center justify-center mb-4">
+                      <ValueIcon className="w-5 h-5 text-brand-700" strokeWidth={iconStroke} />
+                    </div>
+                    <h4 className="text-base font-semibold text-brand-900 mb-2">{item.title}</h4>
+                    <p className="text-sm text-surface-600 leading-relaxed">{item.statement}</p>
+                  </article>
+                );
+              })}
+            </div>
+          )}
+
+          {active === "whyMetron" && about.whyMetronTab?.points && (
+            <ul className="space-y-4 max-w-3xl">
+              {about.whyMetronTab.points.map((point) => (
+                <li key={point} className="flex gap-3 text-surface-700 leading-relaxed text-base md:text-lg">
+                  <span className="w-1.5 h-1.5 rounded-full bg-brand-500 mt-2.5 shrink-0" />
+                  <span>{point}</span>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </div>
     </section>
