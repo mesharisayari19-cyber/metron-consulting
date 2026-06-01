@@ -12,11 +12,29 @@ export function Hero() {
   const DownloadIcon = brandIcons.ui.download;
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center overflow-hidden bg-brand-gradient">
+    <section
+      id="home"
+      className="relative min-h-screen flex items-center overflow-hidden bg-brand-950"
+    >
+      {/* Layer 1 — KAFD / Riyadh skyline (cover) */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `url('${themeConfig.assets.heroBackground}')`,
+        }}
+        aria-hidden
+      />
+
+      {/* Layer 2 — Metron dark blue overlay (~60% — image ~20% clearer than /80) */}
+      <div className="absolute inset-0 bg-brand-950/60" aria-hidden />
+
+      {/* Layer 3 — Metron pattern (very subtle) */}
       <BrandPattern opacity={0.07} />
 
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_70%_20%,rgba(143,163,181,0.15),transparent)]" />
-      <div className="absolute bottom-0 inset-x-0 h-40 bg-gradient-to-t from-brand-950 to-transparent" />
+      <div
+        className="pointer-events-none absolute bottom-0 inset-x-0 h-40 bg-gradient-to-t from-brand-950 to-transparent"
+        aria-hidden
+      />
 
       <div className="relative z-10 w-full max-w-content mx-auto px-4 sm:px-6 lg:px-8 hero-offset pb-20 md:pb-24">
         <motion.div

@@ -31,7 +31,7 @@ export const themeConfig = {
     /** Replace this path to update company profile PDF */
     companyProfile: "/assets/company-profile.pdf",
     /** Set path when hero image is ready, e.g. "/assets/hero-bg.jpg" */
-    heroBackground: "" as string,
+    heroBackground: "/assets/hero/kafd.jpg",
   },
 
   contact: {

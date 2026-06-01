@@ -12,9 +12,9 @@ export const translations = {
     },
     hero: {
       eyebrow: "المراجعة الداخلية · الحوكمة · المخاطر · الالتزام",
-      title: "نحو أداء مؤسسي قابل للقياس وأثر مستدام",
+      title: "ميترون للاستشارات",
       subtitle:
-        "نساعد الجهات الحكومية وشبه الحكومية والخاصة على تعزيز الحوكمة وإدارة المخاطر والالتزام وتحسين الأداء من خلال حلول عملية مبنية على الدقة والثقة.",
+        "شركة سعودية متخصصة في تقديم الخدمات الاستشارية في مجالات المراجعة الداخلية، والحوكمة، وإدارة المخاطر، والالتزام لمختلف القطاعات.",
       ctaAbout: "تعرف علينا",
       ctaProfile: "تحميل الملف التعريفي",
     },
@@ -141,9 +141,9 @@ export const translations = {
     },
     hero: {
       eyebrow: "Internal Audit · Governance · Risk · Compliance",
-      title: "Toward Measurable Performance and Sustainable Impact",
+      title: "Metron Consulting",
       subtitle:
-        "We support government, semi-government, and private sector entities in strengthening governance, risk management, compliance, and performance through practical solutions built on precision and trust.",
+        "A Saudi consulting firm specialized in Internal Audit, Governance, Risk Management, and Compliance services across various sectors.",
       ctaAbout: "About Us",
       ctaProfile: "Download Company Profile",
     },

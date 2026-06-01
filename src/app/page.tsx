@@ -3,7 +3,6 @@
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Hero } from "@/components/sections/Hero";
-import { Framework } from "@/components/sections/Framework";
 import { WhyMetron } from "@/components/sections/WhyMetron";
 import { About } from "@/components/sections/About";
 import { Services } from "@/components/sections/Services";
@@ -33,7 +32,6 @@ export default function HomePage() {
       <Header />
       <main>
         <Hero />
-        <Framework />
         <WhyMetron />
         <About />
         <Services />
