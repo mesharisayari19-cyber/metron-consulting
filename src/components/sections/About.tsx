@@ -60,12 +60,6 @@ export function About() {
       <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader title={about.title} subtitle={about.subtitle} />
 
-        {about.cards.overview?.text && (
-          <p className="text-surface-700 leading-relaxed text-base md:text-lg max-w-3xl mx-auto text-center mb-10 md:mb-12">
-            {about.cards.overview.text}
-          </p>
-        )}
-
         <div
           className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 md:mb-10"
           role="tablist"

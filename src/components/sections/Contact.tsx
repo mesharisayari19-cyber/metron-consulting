@@ -12,7 +12,9 @@ export function Contact() {
   const { t } = useLocale();
   const [status, setStatus] = useState<"idle" | "sending" | "success">("idle");
   const MailIcon = brandIcons.ui.mail;
+  const PhoneIcon = brandIcons.ui.phone;
   const MapPinIcon = brandIcons.ui.mapPin;
+  const phoneHref = `tel:${themeConfig.contact.phone.replace(/\s/g, "")}`;
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -96,6 +98,22 @@ export function Contact() {
                   className="text-brand-600 hover:text-brand-800 text-lg transition-colors"
                 >
                   {themeConfig.contact.email}
+                </a>
+              </div>
+            </div>
+
+            <div className="card-premium p-8 flex gap-5">
+              <div className="w-12 h-12 rounded-lg bg-brand-700 flex items-center justify-center shrink-0">
+                <PhoneIcon className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <h3 className="font-semibold text-brand-900 mb-1">{t.contact.phone}</h3>
+                <a
+                  href={phoneHref}
+                  className="text-brand-600 hover:text-brand-800 text-lg transition-colors"
+                  dir="ltr"
+                >
+                  {themeConfig.contact.phone}
                 </a>
               </div>
             </div>

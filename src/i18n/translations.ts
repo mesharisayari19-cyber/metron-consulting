@@ -110,7 +110,7 @@ export const translations = {
     },
     team: {
       title: "فريقنا",
-      subtitle: "قيادات وخبراء يقودون التميز المؤسسي",
+      subtitle: "فريق استشاري يجمع بين المعرفة المهنية والخبرة التطبيقية",
       viewLinkedIn: "LinkedIn",
     },
     clients: {
@@ -121,6 +121,7 @@ export const translations = {
       title: "تواصل معنا",
       subtitle: "نرحب باستفساراتكم ونتطلع للتواصل معكم",
       address: "الموقع",
+      phone: "الهاتف",
       email: "البريد الإلكتروني",
       location: "المملكة العربية السعودية",
       form: {
@@ -279,6 +280,7 @@ export const translations = {
       title: "Contact Us",
       subtitle: "We welcome your inquiries and look forward to connecting",
       address: "Location",
+      phone: "Phone",
       email: "Email",
       location: "Kingdom of Saudi Arabia",
       form: {

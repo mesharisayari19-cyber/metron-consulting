@@ -36,6 +36,7 @@ export const themeConfig = {
 
   contact: {
     email: "info@metron.sa",
+    phone: "+966 11 000 0000",
     address: {
       ar: "المملكة العربية السعودية",
       en: "Kingdom of Saudi Arabia",

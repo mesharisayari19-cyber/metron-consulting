@@ -20,6 +20,7 @@ import {
   GraduationCap,
   Download,
   Mail,
+  Phone,
   MapPin,
   Linkedin,
   ChevronRight,
@@ -49,6 +50,7 @@ export const brandIcons = {
   ui: {
     download: Download,
     mail: Mail,
+    phone: Phone,
     mapPin: MapPin,
     linkedin: Linkedin,
     chevronRight: ChevronRight,
