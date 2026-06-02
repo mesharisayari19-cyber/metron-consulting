@@ -20,11 +20,15 @@ const arabicFont = IBM_Plex_Sans_Arabic({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://metron-consulting.vercel.app"),
   title: {
     default: "Metron | ميترون للاستشارات المهنية",
     template: "%s | Metron",
   },
   description: themeConfig.seo.defaultDescription.en,
+  alternates: {
+    canonical: "/",
+  },
   keywords: [
     "consulting",
     "internal audit",
@@ -37,10 +41,25 @@ export const metadata: Metadata = {
     "حوكمة",
   ],
   openGraph: {
+    title: "Metron | ميترون للاستشارات المهنية",
+    description: themeConfig.seo.defaultDescription.en,
     type: "website",
+    url: "https://metron-consulting.vercel.app",
     locale: "ar_SA",
     alternateLocale: "en_US",
     siteName: themeConfig.seo.siteName.en,
+    images: [
+      {
+        url: "/assets/brand/logo-horizontal.svg",
+        alt: "Metron Professional Consulting",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Metron | ميترون للاستشارات المهنية",
+    description: themeConfig.seo.defaultDescription.en,
+    images: ["/assets/brand/logo-horizontal.svg"],
   },
   robots: { index: true, follow: true },
 };
@@ -53,6 +72,25 @@ export default function RootLayout({
   return (
     <html lang="ar" dir="rtl" suppressHydrationWarning>
       <body className={`${montserrat.variable} ${arabicFont.variable} font-arabic`}>
+        <script
+          type="application/ld+json"
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "ProfessionalService",
+              name: "Metron Professional Consulting",
+              url: "https://metron-consulting.vercel.app",
+              logo: "https://metron-consulting.vercel.app/assets/brand/logo-horizontal.svg",
+              email: themeConfig.contact.email,
+              telephone: themeConfig.contact.phone,
+              address: {
+                "@type": "PostalAddress",
+                addressCountry: "SA",
+              },
+            }),
+          }}
+        />
         <LocaleProvider>{children}</LocaleProvider>
       </body>
     </html>

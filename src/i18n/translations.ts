@@ -7,7 +7,7 @@ export const translations = {
       about: "من نحن",
       services: "خدماتنا",
       team: "فريقنا",
-      clients: "عملاؤنا",
+      clients: "القطاعات",
       contact: "تواصل معنا",
     },
     hero: {
@@ -111,7 +111,6 @@ export const translations = {
     team: {
       title: "فريقنا",
       subtitle: "فريق استشاري يجمع بين المعرفة والخبرة المهنية",
-      viewLinkedIn: "LinkedIn",
     },
     clients: {
       title: "القطاعات التي نخدمها",
@@ -119,7 +118,7 @@ export const translations = {
       sectors: {
         government: { ar: "الجهات الحكومية", en: "Government Entities" },
         semiGovernment: { ar: "الجهات شبه الحكومية", en: "Semi-Government Entities" },
-        financial: { ar: "القطاع المالي", en: "Financial Sector" },
+        nonProfit: { ar: "القطاع غير الربحي", en: "Non-Profit Sector" },
         listedCompanies: { ar: "الشركات المساهمة", en: "Listed Companies" },
         privateSector: { ar: "القطاع الخاص", en: "Private Sector" },
       },
@@ -277,7 +276,6 @@ export const translations = {
     team: {
       title: "Our Team",
       subtitle: "Leaders and experts driving institutional excellence",
-      viewLinkedIn: "LinkedIn",
     },
     clients: {
       title: "Sectors We Serve",
@@ -285,7 +283,7 @@ export const translations = {
       sectors: {
         government: { ar: "الجهات الحكومية", en: "Government Entities" },
         semiGovernment: { ar: "الجهات شبه الحكومية", en: "Semi-Government Entities" },
-        financial: { ar: "القطاع المالي", en: "Financial Sector" },
+        nonProfit: { ar: "القطاع غير الربحي", en: "Non-Profit Sector" },
         listedCompanies: { ar: "الشركات المساهمة", en: "Listed Companies" },
         privateSector: { ar: "القطاع الخاص", en: "Private Sector" },
       },

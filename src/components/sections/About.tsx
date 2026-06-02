@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState, type KeyboardEvent } from "react";
 import {
   Eye,
   Target,
@@ -43,6 +43,7 @@ const iconStroke = 1.25;
 export function About() {
   const { t } = useLocale();
   const [active, setActive] = useState<TabKey>("vision");
+  const tabButtonRefs = useRef<Array<HTMLButtonElement | null>>([]);
 
   const about = t.about;
   if (!about?.cards) return null;
@@ -52,6 +53,37 @@ export function About() {
   const tabLabel = (key: TabKey) => {
     if (key === "whyMetron") return about.whyMetronTab.title;
     return about.cards[key].title;
+  };
+
+  const handleTabKeyDown = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
+    const total = tabKeys.length;
+    const isRtl = document?.documentElement?.dir === "rtl";
+    let nextIndex = index;
+
+    switch (event.key) {
+      case "ArrowRight":
+        event.preventDefault();
+        nextIndex = isRtl ? (index - 1 + total) % total : (index + 1) % total;
+        break;
+      case "ArrowLeft":
+        event.preventDefault();
+        nextIndex = isRtl ? (index + 1) % total : (index - 1 + total) % total;
+        break;
+      case "Home":
+        event.preventDefault();
+        nextIndex = 0;
+        break;
+      case "End":
+        event.preventDefault();
+        nextIndex = total - 1;
+        break;
+      default:
+        return;
+    }
+
+    const targetKey = tabKeys[nextIndex];
+    setActive(targetKey);
+    tabButtonRefs.current[nextIndex]?.focus();
   };
 
   return (
@@ -65,19 +97,23 @@ export function About() {
           role="tablist"
           aria-label={about.title}
         >
-          {tabKeys.map((key) => {
+          {tabKeys.map((key, index) => {
             const Icon = tabIcons[key];
             const isActive = active === key;
 
             return (
               <button
                 key={key}
+                ref={(element) => {
+                  tabButtonRefs.current[index] = element;
+                }}
                 type="button"
                 role="tab"
                 aria-selected={isActive}
                 aria-controls={`about-panel-${key}`}
                 id={`about-tab-${key}`}
                 onClick={() => setActive(key)}
+                onKeyDown={(event) => handleTabKeyDown(event, index)}
                 className={`inline-flex items-center gap-2 px-4 py-2.5 sm:px-5 sm:py-3 rounded-full text-sm font-semibold border transition-all duration-300 ${
                   isActive
                     ? "bg-brand-900 text-white border-brand-900 shadow-[0_4px_14px_rgba(27,61,92,0.2)]"

@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { useLocale } from "@/context/LocaleContext";
 
-const sectorKeys = ["government", "semiGovernment", "financial", "listedCompanies", "privateSector"] as const;
+const sectorKeys = ["government", "semiGovernment", "listedCompanies", "privateSector", "nonProfit"] as const;
 const sectorIcons = [Landmark, Building2, BriefcaseBusiness, Building, Handshake];
 
 export function Clients() {
