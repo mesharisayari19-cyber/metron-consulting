@@ -13,7 +13,7 @@ export const brandLogo = {
   paths: {
     /** Horizontal logo — high-res from official SVG (عرضي) */
     horizontal: "/assets/brand/logo-horizontal-colored.png",
-    horizontalLight: "/assets/brand/logo-horizontal-white.png",
+    horizontalLight: "/assets/brand/logo-horizontal-white-v2.png",
     /** Official vector sources */
     horizontalSvg: "/assets/brand/logo-horizontal.svg",
     horizontalWhiteSvg: "/assets/brand/logo-horizontal-white.svg",
