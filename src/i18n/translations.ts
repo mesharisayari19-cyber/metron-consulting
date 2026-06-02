@@ -114,8 +114,15 @@ export const translations = {
       viewLinkedIn: "LinkedIn",
     },
     clients: {
-      title: "عملاؤنا",
-      subtitle: "ثقة مؤسسات رائدة في مختلف القطاعات",
+      title: "القطاعات التي نخدمها",
+      subtitle: "نقدم خدماتنا لمجموعة متنوعة من الجهات والمؤسسات في مختلف القطاعات.",
+      sectors: {
+        government: { ar: "الجهات الحكومية", en: "Government Entities" },
+        semiGovernment: { ar: "الجهات شبه الحكومية", en: "Semi-Government Entities" },
+        financial: { ar: "القطاع المالي", en: "Financial Sector" },
+        listedCompanies: { ar: "الشركات المساهمة", en: "Listed Companies" },
+        privateSector: { ar: "القطاع الخاص", en: "Private Sector" },
+      },
     },
     contact: {
       title: "تواصل معنا",
@@ -273,8 +280,15 @@ export const translations = {
       viewLinkedIn: "LinkedIn",
     },
     clients: {
-      title: "Our Clients",
-      subtitle: "Trusted by leading organizations across sectors",
+      title: "Sectors We Serve",
+      subtitle: "We serve a diverse range of entities and institutions across multiple sectors.",
+      sectors: {
+        government: { ar: "الجهات الحكومية", en: "Government Entities" },
+        semiGovernment: { ar: "الجهات شبه الحكومية", en: "Semi-Government Entities" },
+        financial: { ar: "القطاع المالي", en: "Financial Sector" },
+        listedCompanies: { ar: "الشركات المساهمة", en: "Listed Companies" },
+        privateSector: { ar: "القطاع الخاص", en: "Private Sector" },
+      },
     },
     contact: {
       title: "Contact Us",

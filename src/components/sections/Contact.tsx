@@ -27,13 +27,13 @@ export function Contact() {
       <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader title={t.contact.title} subtitle={t.contact.subtitle} />
 
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-start">
           <motion.form
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             onSubmit={handleSubmit}
-            className="card-premium p-8 md:p-10 space-y-6 order-2 lg:order-1"
+            className="card-premium p-8 md:p-10 space-y-5 order-2 lg:order-1"
           >
             <div>
               <label htmlFor="name" className="block text-sm font-semibold text-brand-900 mb-2">
@@ -56,6 +56,17 @@ export function Contact() {
                 name="email"
                 type="email"
                 required
+                className="w-full px-4 py-3.5 rounded-md border border-surface-300 bg-white focus:border-brand-500 focus:ring-2 focus:ring-brand-500/15 outline-none transition-all"
+              />
+            </div>
+            <div>
+              <label htmlFor="phone" className="block text-sm font-semibold text-brand-900 mb-2">
+                {t.contact.phone}
+              </label>
+              <input
+                id="phone"
+                name="phone"
+                type="tel"
                 className="w-full px-4 py-3.5 rounded-md border border-surface-300 bg-white focus:border-brand-500 focus:ring-2 focus:ring-brand-500/15 outline-none transition-all"
               />
             </div>
@@ -85,7 +96,7 @@ export function Contact() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="space-y-8 order-1 lg:order-2"
+            className="space-y-6 order-1 lg:order-2"
           >
             <div className="card-premium p-8 flex gap-5">
               <div className="w-12 h-12 rounded-lg bg-brand-700 flex items-center justify-center shrink-0">

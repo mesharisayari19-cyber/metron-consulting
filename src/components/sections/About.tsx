@@ -6,10 +6,10 @@ import {
   Target,
   Gem,
   Sparkles,
-  Award,
-  Scale,
+  BriefcaseBusiness,
+  ShieldCheck,
   TrendingUp,
-  Users,
+  UsersRound,
 } from "lucide-react";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { useLocale } from "@/context/LocaleContext";
@@ -32,10 +32,10 @@ const valueKeys = [
 ] as const;
 
 const valueIcons = {
-  professionalQuality: Award,
-  integrity: Scale,
+  professionalQuality: BriefcaseBusiness,
+  integrity: ShieldCheck,
   sustainableImpact: TrendingUp,
-  clientFocus: Users,
+  clientFocus: UsersRound,
 };
 
 const iconStroke = 1.25;
@@ -137,12 +137,12 @@ export function About() {
                 return (
                   <article
                     key={key}
-                    className="rounded-lg border border-surface-200/80 bg-surface-50/50 p-5 md:p-6 text-center"
+                    className="rounded-lg border border-surface-200/80 bg-surface-50/50 p-4 md:p-5 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_14px_30px_-18px_rgba(27,61,92,0.35)]"
                   >
-                    <div className="w-11 h-11 mx-auto rounded-full bg-brand-50 border border-brand-100 flex items-center justify-center mb-4">
-                      <ValueIcon className="w-5 h-5 text-brand-700" strokeWidth={iconStroke} />
+                    <div className="w-10 h-10 mx-auto rounded-full bg-brand-50 border border-brand-100 flex items-center justify-center mb-3">
+                      <ValueIcon className="w-[1.125rem] h-[1.125rem] text-brand-700" strokeWidth={iconStroke} />
                     </div>
-                    <h4 className="text-base font-semibold text-brand-900 mb-2">{item.title}</h4>
+                    <h4 className="text-base font-semibold text-brand-900 mb-1.5">{item.title}</h4>
                     <p className="text-sm text-surface-600 leading-relaxed">{item.statement}</p>
                   </article>
                 );
