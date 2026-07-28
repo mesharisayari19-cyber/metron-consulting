@@ -1,6 +1,7 @@
 "use client";
 
 import { ICON_STROKE, brandIcons } from "@branding/icons";
+import { AnimatePresence, motion } from "framer-motion";
 import { useRef, useState, type KeyboardEvent } from "react";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { useLocale } from "@/context/LocaleContext";
@@ -93,7 +94,7 @@ export function About() {
                 id={`about-tab-${key}`}
                 onClick={() => setActive(key)}
                 onKeyDown={(event) => handleTabKeyDown(event, index)}
-                className={`inline-flex items-center gap-2 px-3 py-2 sm:px-5 sm:py-3 rounded-full text-sm font-semibold border transition-all duration-300 ${
+                className={`inline-flex items-center gap-2 px-3 py-2 sm:px-5 sm:py-3 rounded-full text-sm font-semibold border transition-all duration-200 ease-out ${
                   isActive
                     ? "bg-brand-900 text-white border-brand-900 shadow-[0_4px_14px_rgba(27,61,92,0.2)]"
                     : "bg-white text-brand-800 border-surface-200 hover:border-brand-200 hover:bg-brand-50/50"
@@ -109,75 +110,82 @@ export function About() {
           })}
         </div>
 
-        <div
-          key={active}
-          id={`about-panel-${active}`}
-          role="tabpanel"
-          aria-labelledby={`about-tab-${active}`}
-          className="card-premium p-8 md:p-10 lg:p-12 transition-opacity duration-300"
-        >
-          <div className="flex items-start gap-4 mb-6">
-            <div className="w-12 h-12 rounded-lg bg-brand-50 border border-brand-100 flex items-center justify-center shrink-0">
-              <ActiveIcon className="w-6 h-6 text-brand-700" strokeWidth={ICON_STROKE} />
-            </div>
-            <div className="flex items-center gap-3 min-w-0 pt-1">
-              <span
-                className="w-1 self-stretch min-h-[1.75rem] rounded-full bg-brand-600 shrink-0"
-                aria-hidden
-              />
-              <h3 className="text-xl md:text-2xl font-semibold text-brand-900">
-                {tabLabel(active)}
-              </h3>
-            </div>
-          </div>
+        <div className="card-premium p-8 md:p-10 lg:p-11">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={active}
+              id={`about-panel-${active}`}
+              role="tabpanel"
+              aria-labelledby={`about-tab-${active}`}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25, ease: "easeInOut" }}
+            >
+              <div className="flex items-start gap-5 mb-7">
+                <div className="icon-container-premium w-14 h-14 shrink-0">
+                  <ActiveIcon className="w-6 h-6 text-brand-700" strokeWidth={ICON_STROKE} />
+                </div>
+                <div className="flex items-center gap-3 min-w-0 pt-1.5">
+                  <span
+                    className="w-1 self-stretch min-h-[1.75rem] rounded-full bg-brand-600 shrink-0"
+                    aria-hidden
+                  />
+                  <h3 className="text-xl md:text-2xl font-semibold text-brand-900">
+                    {tabLabel(active)}
+                  </h3>
+                </div>
+              </div>
 
-          {active === "vision" && (
-            <p className="text-surface-700 leading-relaxed text-base md:text-lg max-w-3xl">
-              {about.cards.vision.text}
-            </p>
-          )}
+              {active === "vision" && (
+                <p className="text-surface-700 leading-relaxed text-base md:text-lg max-w-3xl">
+                  {about.cards.vision.text}
+                </p>
+              )}
 
-          {active === "mission" && (
-            <p className="text-surface-700 leading-relaxed text-base md:text-lg max-w-3xl">
-              {about.cards.mission.text}
-            </p>
-          )}
+              {active === "mission" && (
+                <p className="text-surface-700 leading-relaxed text-base md:text-lg max-w-3xl">
+                  {about.cards.mission.text}
+                </p>
+              )}
 
-          {active === "values" && about.valueItems && (
-            <div className="grid sm:grid-cols-2 gap-4 md:gap-5">
-              {valueKeys.map((key) => {
-                const item = about.valueItems?.[key];
-                if (!item) return null;
-                const ValueIcon = valueIcons[key];
-                return (
-                  <article
-                    key={key}
-                    className="rounded-lg border border-surface-200/80 bg-surface-50/50 p-4 md:p-5 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_14px_30px_-18px_rgba(27,61,92,0.35)]"
-                  >
-                    <div className="w-10 h-10 mx-auto rounded-full bg-brand-50 border border-brand-100 flex items-center justify-center mb-3">
-                      <ValueIcon
-                        className="w-[1.125rem] h-[1.125rem] text-brand-700"
-                        strokeWidth={ICON_STROKE}
-                      />
-                    </div>
-                    <h4 className="text-base font-semibold text-brand-900 mb-1.5">{item.title}</h4>
-                    <p className="text-sm text-surface-600 leading-relaxed">{item.statement}</p>
-                  </article>
-                );
-              })}
-            </div>
-          )}
+              {active === "values" && about.valueItems && (
+                <div className="grid sm:grid-cols-2 gap-5 md:gap-6">
+                  {valueKeys.map((key) => {
+                    const item = about.valueItems?.[key];
+                    if (!item) return null;
+                    const ValueIcon = valueIcons[key];
+                    return (
+                      <article
+                        key={key}
+                        className="value-card p-5 md:p-6 text-center"
+                      >
+                        <div className="icon-container-premium w-12 h-12 mx-auto rounded-full mb-4">
+                          <ValueIcon
+                            className="w-5 h-5 text-brand-700"
+                            strokeWidth={ICON_STROKE}
+                          />
+                        </div>
+                        <h4 className="text-base font-semibold text-brand-900 mb-2">{item.title}</h4>
+                        <p className="text-sm text-surface-600 leading-relaxed">{item.statement}</p>
+                      </article>
+                    );
+                  })}
+                </div>
+              )}
 
-          {active === "whyMetron" && about.whyMetronTab?.points && (
-            <ul className="space-y-4 max-w-3xl">
-              {about.whyMetronTab.points.map((point) => (
-                <li key={point} className="flex gap-3 text-surface-700 leading-relaxed text-base md:text-lg">
-                  <span className="w-1.5 h-1.5 rounded-full bg-brand-500 mt-2.5 shrink-0" />
-                  <span>{point}</span>
-                </li>
-              ))}
-            </ul>
-          )}
+              {active === "whyMetron" && about.whyMetronTab?.points && (
+                <ul className="space-y-4 max-w-3xl">
+                  {about.whyMetronTab.points.map((point) => (
+                    <li key={point} className="flex gap-3 text-surface-700 leading-relaxed text-base md:text-lg">
+                      <span className="w-1.5 h-1.5 rounded-full bg-brand-500 mt-2.5 shrink-0" />
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
     </section>

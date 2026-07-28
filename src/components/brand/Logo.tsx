@@ -10,6 +10,7 @@ type LogoSize = "header" | "footer";
 interface LogoProps {
   variant?: LogoVariant;
   size?: LogoSize;
+  compact?: boolean;
   className?: string;
   href?: string;
   priority?: boolean;
@@ -24,6 +25,7 @@ const footerBox =
 export function Logo({
   variant = "horizontal",
   size = "header",
+  compact = false,
   className = "",
   href = "#home",
   priority = false,
@@ -42,8 +44,10 @@ export function Logo({
       alt="Metron Consulting — ميترون للاستشارات"
       width={dims.width}
       height={dims.height}
-      className={`object-contain object-start bg-transparent ${
-        isHeader ? `${headerBox} ${className}` : `${footerBox} ${className}`
+      className={`object-contain object-start bg-transparent transition-transform duration-300 ease-out ${
+        isHeader
+          ? `${headerBox} ${compact ? "scale-[0.88] origin-start" : ""} ${className}`
+          : `${footerBox} ${className}`
       }`}
       priority={priority}
       sizes={

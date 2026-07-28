@@ -27,18 +27,18 @@ export function Services() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ delay: (index % 2) * 0.08, duration: 0.45 }}
-                className={`group card-premium relative flex flex-col overflow-hidden p-8 md:p-10 lg:p-12 ${
+                className={`group card-premium relative flex flex-col overflow-hidden p-8 md:p-10 lg:p-11 ${
                   isLastAlone ? "md:col-span-2 md:max-w-3xl md:mx-auto md:w-full" : ""
                 }`}
               >
                 <div
-                  className="pointer-events-none absolute inset-x-0 top-0 h-px bg-surface-200/80 transition-colors duration-500 group-hover:bg-brand-200/60"
+                  className="pointer-events-none absolute inset-x-0 top-0 h-px bg-surface-200/70 transition-colors duration-300 group-hover:bg-brand-200/50"
                   aria-hidden
                 />
 
-                <div className="mb-7 inline-flex h-14 w-14 items-center justify-center rounded-md border border-brand-100/90 bg-brand-50/40 transition-all duration-500 group-hover:border-brand-700 group-hover:bg-brand-700">
+                <div className="icon-container-premium mb-7 h-14 w-14 transition-all duration-300 ease-out group-hover:border-brand-700 group-hover:bg-brand-700 group-hover:shadow-[0_4px_12px_rgba(27,61,92,0.12)]">
                   <Icon
-                    className="h-7 w-7 text-brand-700 transition-colors duration-500 group-hover:text-white"
+                    className="h-7 w-7 text-brand-700 transition-colors duration-300 ease-out group-hover:text-white"
                     strokeWidth={ICON_STROKE}
                   />
                 </div>
@@ -47,11 +47,11 @@ export function Services() {
                   {isArabic ? service.title.ar : service.title.en}
                 </h3>
 
-                <p className="text-surface-600 leading-relaxed text-base md:text-lg mb-8 max-w-prose">
+                <p className="text-surface-600 leading-relaxed text-base md:text-lg mb-0 max-w-prose">
                   {isArabic ? service.description.ar : service.description.en}
                 </p>
 
-                <div className="mt-auto border-t border-surface-200/80 pt-7">
+                <div className="mt-auto pt-8 border-t border-surface-200/70">
                   <h4
                     className={`text-sm font-bold text-brand-600 mb-5 ${
                       isArabic ? "tracking-normal normal-case" : "tracking-widest uppercase"
@@ -59,7 +59,7 @@ export function Services() {
                   >
                     {t.services.subServicesHeading}
                   </h4>
-                  <ul className="space-y-3">
+                  <ul className="space-y-5">
                     {subList.map((item) => (
                       <li
                         key={item}

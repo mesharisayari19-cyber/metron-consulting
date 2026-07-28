@@ -26,10 +26,10 @@ export function Clients() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.06, duration: 0.45 }}
-              className="group card-premium p-6 md:p-7 min-h-[152px] flex flex-col items-center justify-center text-center"
+              className="group card-premium p-7 md:p-8 min-h-[160px] flex flex-col items-center justify-center text-center transition-all duration-300 ease-out hover:border-brand-200/60 hover:bg-brand-50/20"
             >
-              <div className="w-11 h-11 rounded-full bg-brand-50 border border-brand-100 flex items-center justify-center mb-4 group-hover:bg-brand-100 transition-colors duration-300">
-                <Icon className="w-5 h-5 text-brand-700" strokeWidth={ICON_STROKE} />
+              <div className="icon-container-premium w-12 h-12 rounded-full mb-5 transition-all duration-300 ease-out group-hover:scale-105 group-hover:border-brand-200/80 group-hover:bg-brand-50/80">
+                <Icon className="w-6 h-6 text-brand-700 transition-transform duration-300 ease-out group-hover:scale-105" strokeWidth={ICON_STROKE} />
               </div>
               <h3 className="text-base md:text-lg font-semibold text-brand-900 leading-snug">{label}</h3>
             </motion.div>

@@ -47,7 +47,7 @@ export function Button({
   icon,
   external,
 }: ButtonProps) {
-  const classes = `inline-flex items-center justify-center gap-2 font-medium rounded-md transition-all duration-300 ${variants[variant]} ${sizes[size]} ${className}`;
+  const classes = `inline-flex items-center justify-center gap-2 font-medium rounded-md transition-all duration-200 ease-out ${variants[variant]} ${sizes[size]} ${className}`;
 
   const content = (
     <>
@@ -65,8 +65,8 @@ export function Button({
           target={external ? "_blank" : undefined}
           rel={external ? "noopener noreferrer" : undefined}
           className={classes}
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
+          whileHover={{ y: -1 }}
+          whileTap={{ y: 0 }}
         >
           {content}
         </motion.a>
@@ -76,8 +76,8 @@ export function Button({
       <Link href={href} className={classes}>
         <motion.span
           className="inline-flex items-center gap-2"
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
+          whileHover={{ y: -1 }}
+          whileTap={{ y: 0 }}
         >
           {content}
         </motion.span>
@@ -90,8 +90,8 @@ export function Button({
       type={type}
       onClick={onClick}
       className={classes}
-      whileHover={{ scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
+      whileHover={{ y: -1 }}
+      whileTap={{ y: 0 }}
     >
       {content}
     </motion.button>

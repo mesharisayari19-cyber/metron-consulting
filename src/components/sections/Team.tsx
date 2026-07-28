@@ -14,7 +14,7 @@ export function Team() {
       <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader title={t.team.title} subtitle={t.team.subtitle} />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 gap-6 lg:gap-8 items-stretch">
           {teamMembers.map((member, index) => {
             const displayName = isArabic ? member.name.ar : member.name.en;
             const points = isArabic ? member.bioPoints.ar : member.bioPoints.en;
@@ -26,7 +26,7 @@ export function Team() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.07, duration: 0.5 }}
-                className="group flex flex-col card-premium overflow-hidden min-w-0"
+                className="group flex flex-col card-premium overflow-hidden min-w-0 h-full transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[0_16px_40px_-14px_rgba(27,61,92,0.10)]"
               >
                 <div className="relative aspect-[3/4] bg-surface-100 overflow-hidden shrink-0">
                   <Image
@@ -34,7 +34,7 @@ export function Team() {
                     alt={displayName}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1536px) 33vw, 20vw"
-                    className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+                    className="object-cover object-[50%_18%] scale-[1.12] transition-transform duration-300 ease-out group-hover:scale-[1.13]"
                   />
                   <div
                     className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-white/80 to-transparent"

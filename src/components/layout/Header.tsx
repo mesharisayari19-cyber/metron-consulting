@@ -38,8 +38,10 @@ export function Header() {
 
   return (
     <header
-      className={`fixed top-0 inset-x-0 z-50 h-[var(--header-height)] transition-all duration-500 ${
-        scrolled ? "glass-header" : "glass-header-dark"
+      className={`fixed top-0 inset-x-0 z-50 transition-[height,background-color,box-shadow,border-color] duration-300 ease-out ${
+        scrolled
+          ? "glass-header h-[var(--header-height-scrolled)]"
+          : "glass-header-dark h-[var(--header-height)]"
       }`}
     >
       <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8 h-full">
@@ -47,6 +49,7 @@ export function Header() {
           <Logo
             variant={scrolled ? "horizontal" : "horizontalLight"}
             size="header"
+            compact={scrolled}
             priority
             href="#home"
           />
@@ -56,7 +59,7 @@ export function Header() {
               <Link
                 key={item.id}
                 href={item.href}
-                className={`px-4 py-2.5 text-sm font-medium rounded-md transition-colors duration-300 ${
+                className={`px-4 py-2.5 text-sm font-medium rounded-md transition-colors duration-200 ease-out ${
                   scrolled
                     ? "text-brand-800 hover:text-brand-600 hover:bg-brand-50/80"
                     : "text-white/90 hover:text-white hover:bg-white/10"
