@@ -11,8 +11,10 @@ export function Footer() {
   const year = new Date().getFullYear();
   const copyright = t.footer.copyright.replace("{year}", String(year));
   const LinkedInIcon = brandIcons.ui.linkedin;
+  const XIcon = brandIcons.ui.x;
   const phoneHref = `tel:${themeConfig.contact.phone.replace(/\s/g, "")}`;
   const linkedinUrl = themeConfig.contact.linkedin || themeConfig.contact.social.linkedin;
+  const xUrl = themeConfig.contact.social.x;
 
   const sectionHeadingClass = isArabic
     ? "text-white font-semibold text-sm tracking-normal mb-5"
@@ -35,19 +37,30 @@ export function Footer() {
             <p className="mt-6 text-sm leading-relaxed max-w-md text-white/60">
               {t.footer.summary}
             </p>
-            {linkedinUrl ? (
-              <a
-                href={linkedinUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                dir="ltr"
-                className="inline-flex items-center gap-2 mt-6 text-sm text-white/50 hover:text-white transition-colors w-fit"
-                aria-label={t.footer.linkedin}
-              >
-                <LinkedInIcon className="w-4 h-4 shrink-0" strokeWidth={ICON_STROKE} />
-                <span className="leading-none">{t.footer.linkedin}</span>
-              </a>
-            ) : null}
+            <div className="mt-6 flex items-center gap-3">
+              {linkedinUrl ? (
+                <a
+                  href={linkedinUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-white/25 text-white/50 hover:border-white/50 hover:text-white transition-colors"
+                  aria-label={t.footer.linkedin}
+                >
+                  <LinkedInIcon className="w-4 h-4 shrink-0" strokeWidth={ICON_STROKE} />
+                </a>
+              ) : null}
+              {xUrl ? (
+                <a
+                  href={xUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-white/25 text-white/50 hover:border-white/50 hover:text-white transition-colors"
+                  aria-label={t.contact.social.x}
+                >
+                  <XIcon className="w-3.5 h-3.5 shrink-0" />
+                </a>
+              ) : null}
+            </div>
           </div>
 
           <div>
