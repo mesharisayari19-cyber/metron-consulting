@@ -1,28 +1,14 @@
 "use client";
 
+import { ICON_STROKE, brandIcons } from "@branding/icons";
 import { useRef, useState, type KeyboardEvent } from "react";
-import {
-  Eye,
-  Target,
-  Gem,
-  Sparkles,
-  BriefcaseBusiness,
-  ShieldCheck,
-  TrendingUp,
-  UsersRound,
-} from "lucide-react";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { useLocale } from "@/context/LocaleContext";
 
 const tabKeys = ["vision", "mission", "values", "whyMetron"] as const;
 type TabKey = (typeof tabKeys)[number];
 
-const tabIcons = {
-  vision: Eye,
-  mission: Target,
-  values: Gem,
-  whyMetron: Sparkles,
-};
+const tabIcons = brandIcons.about.tabs;
 
 const valueKeys = [
   "professionalQuality",
@@ -31,14 +17,7 @@ const valueKeys = [
   "clientFocus",
 ] as const;
 
-const valueIcons = {
-  professionalQuality: BriefcaseBusiness,
-  integrity: ShieldCheck,
-  sustainableImpact: TrendingUp,
-  clientFocus: UsersRound,
-};
-
-const iconStroke = 1.25;
+const valueIcons = brandIcons.about.values;
 
 export function About() {
   const { t } = useLocale();
@@ -122,7 +101,7 @@ export function About() {
               >
                 <Icon
                   className={`w-4 h-4 shrink-0 ${isActive ? "text-white" : "text-brand-600"}`}
-                  strokeWidth={iconStroke}
+                  strokeWidth={ICON_STROKE}
                 />
                 <span className="whitespace-nowrap">{tabLabel(key)}</span>
               </button>
@@ -139,7 +118,7 @@ export function About() {
         >
           <div className="flex items-start gap-4 mb-6">
             <div className="w-12 h-12 rounded-lg bg-brand-50 border border-brand-100 flex items-center justify-center shrink-0">
-              <ActiveIcon className="w-6 h-6 text-brand-700" strokeWidth={iconStroke} />
+              <ActiveIcon className="w-6 h-6 text-brand-700" strokeWidth={ICON_STROKE} />
             </div>
             <div className="flex items-center gap-3 min-w-0 pt-1">
               <span
@@ -176,7 +155,10 @@ export function About() {
                     className="rounded-lg border border-surface-200/80 bg-surface-50/50 p-4 md:p-5 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_14px_30px_-18px_rgba(27,61,92,0.35)]"
                   >
                     <div className="w-10 h-10 mx-auto rounded-full bg-brand-50 border border-brand-100 flex items-center justify-center mb-3">
-                      <ValueIcon className="w-[1.125rem] h-[1.125rem] text-brand-700" strokeWidth={iconStroke} />
+                      <ValueIcon
+                        className="w-[1.125rem] h-[1.125rem] text-brand-700"
+                        strokeWidth={ICON_STROKE}
+                      />
                     </div>
                     <h4 className="text-base font-semibold text-brand-900 mb-1.5">{item.title}</h4>
                     <p className="text-sm text-surface-600 leading-relaxed">{item.statement}</p>

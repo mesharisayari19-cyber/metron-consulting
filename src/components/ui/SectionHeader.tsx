@@ -1,5 +1,6 @@
 "use client";
 
+import { useLocale } from "@/context/LocaleContext";
 import { motion } from "framer-motion";
 
 interface SectionHeaderProps {
@@ -15,6 +16,15 @@ export function SectionHeader({
   centered = true,
   light = false,
 }: SectionHeaderProps) {
+  const { isArabic } = useLocale();
+  const gradientClass = isArabic
+    ? light
+      ? "bg-gradient-to-l from-brand-400 to-brand-600"
+      : "bg-gradient-to-l from-brand-600 to-brand-400"
+    : light
+      ? "bg-gradient-to-r from-brand-400 to-brand-600"
+      : "bg-gradient-to-r from-brand-600 to-brand-400";
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
@@ -24,11 +34,7 @@ export function SectionHeader({
       className={`mb-14 md:mb-16 ${centered ? "text-center" : ""}`}
     >
       <div
-        className={`h-1 w-14 rounded-full mb-6 ${centered ? "mx-auto" : ""} ${
-          light
-            ? "bg-gradient-to-r from-brand-400 to-brand-600"
-            : "bg-gradient-to-r from-brand-600 to-brand-400"
-        }`}
+        className={`h-1 w-14 rounded-full mb-6 ${centered ? "mx-auto" : ""} ${gradientClass}`}
       />
       <h2
         className={`heading-display ${centered ? "mx-auto max-w-3xl" : ""} ${

@@ -139,6 +139,9 @@ export const translations = {
         success: "تم إرسال رسالتكم بنجاح. سنتواصل معكم قريباً.",
       },
       mapPlaceholder: "خريطة الموقع — قابلة للإضافة",
+      social: {
+        x: "X",
+      },
     },
     footer: {
       copyright: "© {year} جميع الحقوق محفوظة ميترون للاستشارات",
@@ -160,7 +163,7 @@ export const translations = {
       about: "About Us",
       services: "Services",
       team: "Our Team",
-      clients: "Clients",
+      clients: "Sectors",
       contact: "Contact",
     },
     hero: {
@@ -304,6 +307,9 @@ export const translations = {
         success: "Your message has been sent successfully. We will be in touch soon.",
       },
       mapPlaceholder: "Location map — coming soon",
+      social: {
+        x: "X",
+      },
     },
     footer: {
       copyright: "© {year} Metron Consulting. All rights reserved.",

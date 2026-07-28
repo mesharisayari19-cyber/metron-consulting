@@ -1,21 +1,28 @@
 "use client";
 
+import { ICON_STROKE, brandIcons } from "@branding/icons";
 import { Logo } from "@/components/brand/Logo";
 import { themeConfig } from "@theme/theme.config";
 import Link from "next/link";
 import { useLocale } from "@/context/LocaleContext";
-import { Linkedin } from "lucide-react";
 
 export function Footer() {
-  const { t, dir } = useLocale();
+  const { t, dir, isArabic } = useLocale();
   const year = new Date().getFullYear();
   const copyright = t.footer.copyright.replace("{year}", String(year));
+  const LinkedInIcon = brandIcons.ui.linkedin;
+  const phoneHref = `tel:${themeConfig.contact.phone.replace(/\s/g, "")}`;
+  const linkedinUrl = themeConfig.contact.linkedin || themeConfig.contact.social.linkedin;
+
+  const sectionHeadingClass = isArabic
+    ? "text-white font-semibold text-sm tracking-normal mb-5"
+    : "text-white font-semibold text-sm tracking-widest uppercase mb-5";
 
   const links = [
     { href: "#about", label: t.nav.about },
     { href: "#services", label: t.nav.services },
-    { href: "#why-metron", label: t.whyMetron.title },
     { href: "#team", label: t.nav.team },
+    { href: "#clients", label: t.nav.clients },
     { href: "#contact", label: t.nav.contact },
   ];
 
@@ -28,24 +35,23 @@ export function Footer() {
             <p className="mt-6 text-sm leading-relaxed max-w-md text-white/60">
               {t.footer.summary}
             </p>
-            {themeConfig.contact.linkedin ? (
+            {linkedinUrl ? (
               <a
-                href={themeConfig.contact.linkedin}
+                href={linkedinUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 mt-6 text-sm text-white/50 hover:text-white transition-colors"
+                dir="ltr"
+                className="inline-flex items-center gap-2 mt-6 text-sm text-white/50 hover:text-white transition-colors w-fit"
                 aria-label={t.footer.linkedin}
               >
-                <Linkedin className="w-4 h-4" />
-                {t.footer.linkedin}
+                <LinkedInIcon className="w-4 h-4 shrink-0" strokeWidth={ICON_STROKE} />
+                <span className="leading-none">{t.footer.linkedin}</span>
               </a>
             ) : null}
           </div>
 
           <div>
-            <h3 className="text-white font-semibold text-sm tracking-widest uppercase mb-5">
-              {t.footer.quickLinks}
-            </h3>
+            <h3 className={sectionHeadingClass}>{t.footer.quickLinks}</h3>
             <ul className="space-y-3">
               {links.map((link) => (
                 <li key={link.href}>
@@ -60,17 +66,22 @@ export function Footer() {
             </ul>
           </div>
 
-          <div>
-            <h3 className="text-white font-semibold text-sm tracking-widest uppercase mb-5">
-              {t.contact.title}
-            </h3>
-            <p className="text-sm mb-3">{t.contact.location}</p>
-            <a
-              href={`mailto:${themeConfig.contact.email}`}
-              className="text-sm text-brand-300 hover:text-white transition-colors"
-            >
-              {themeConfig.contact.email}
-            </a>
+          <div className="text-start">
+            <h3 className={sectionHeadingClass}>{t.contact.title}</h3>
+            <div className="flex flex-col gap-3 w-fit max-w-full" dir="ltr">
+              <a
+                href={phoneHref}
+                className="block text-sm text-brand-300 hover:text-white transition-colors text-start leading-none"
+              >
+                {themeConfig.contact.phone}
+              </a>
+              <a
+                href={`mailto:${themeConfig.contact.email}`}
+                className="block text-sm text-brand-300 hover:text-white transition-colors text-start leading-none"
+              >
+                {themeConfig.contact.email}
+              </a>
+            </div>
           </div>
         </div>
 

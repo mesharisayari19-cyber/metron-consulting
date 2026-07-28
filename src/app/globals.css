@@ -66,6 +66,18 @@
     @apply shadow-[0_20px_50px_-12px_rgba(27,61,92,0.12)] border-brand-200/60 -translate-y-1;
   }
 
+  .card-premium-static {
+    @apply bg-white border border-surface-200/80 rounded-lg shadow-[0_1px_2px_rgba(15,34,53,0.04)];
+  }
+
+  .text-eyebrow-en {
+    @apply text-xs md:text-sm font-semibold tracking-[0.2em] uppercase;
+  }
+
+  .text-eyebrow-ar {
+    @apply text-xs md:text-sm font-semibold tracking-normal normal-case;
+  }
+
   .heading-display {
     @apply text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-semibold tracking-tight text-brand-900 leading-[1.15];
   }

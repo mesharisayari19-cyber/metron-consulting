@@ -8,8 +8,11 @@ import { Button } from "@/components/ui/Button";
 import { useLocale } from "@/context/LocaleContext";
 
 export function Hero() {
-  const { t } = useLocale();
+  const { t, isArabic } = useLocale();
   const DownloadIcon = brandIcons.ui.download;
+  const profilePdf = isArabic
+    ? themeConfig.assets.companyProfile.ar
+    : themeConfig.assets.companyProfile.en;
 
   return (
     <section
@@ -43,7 +46,9 @@ export function Hero() {
           transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
           className="text-start max-w-3xl"
         >
-          <p className="text-eyebrow text-brand-300 mb-5">{t.hero.eyebrow}</p>
+          <p className={`${isArabic ? "text-eyebrow-ar" : "text-eyebrow-en"} text-brand-300 mb-5`}>
+            {t.hero.eyebrow}
+          </p>
           <h1 className="text-3xl sm:text-4xl md:text-5xl xl:text-[3.25rem] font-semibold text-white leading-[1.2] tracking-tight text-balance">
             {t.hero.title}
           </h1>
@@ -61,7 +66,7 @@ export function Hero() {
               {t.hero.ctaAbout}
             </Button>
             <Button
-              href={themeConfig.assets.companyProfile}
+              href={profilePdf}
               variant="outline"
               size="lg"
               download

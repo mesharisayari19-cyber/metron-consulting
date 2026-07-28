@@ -28,21 +28,29 @@ export const themeConfig = {
   },
 
   assets: {
-    /** Replace this path to update company profile PDF */
-    companyProfile: "/assets/company-profile.pdf",
+    /** Company profile downloads — replace files in public/assets/company-profile/ */
+    companyProfile: {
+      ar: "/assets/company-profile/metron-profile-ar.pdf",
+      en: "/assets/company-profile/metron-profile-en.pdf",
+    },
+    /** Legacy fallback path (Arabic PDF) */
+    companyProfileLegacy: "/assets/company-profile.pdf",
     /** Set path when hero image is ready, e.g. "/assets/hero-bg.jpg" */
     heroBackground: "/assets/hero/kafd.jpg",
   },
 
   contact: {
-    email: "info@metron.sa",
-    phone: "+966 11 000 0000",
+    email: "contact@metron.sa",
+    phone: "+966 53 693 2633",
     address: {
       ar: "المملكة العربية السعودية",
       en: "Kingdom of Saudi Arabia",
     },
-    /** Set company LinkedIn URL when available */
-    linkedin: "" as string,
+    linkedin: "https://www.linkedin.com/company/metronsa/",
+    social: {
+      linkedin: "https://www.linkedin.com/company/metronsa/",
+      x: "https://x.com/Metronksa",
+    },
   },
 
   seo: {

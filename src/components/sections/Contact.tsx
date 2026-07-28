@@ -1,6 +1,6 @@
 "use client";
 
-import { brandIcons } from "@branding/icons";
+import { ICON_STROKE, brandIcons } from "@branding/icons";
 import { themeConfig } from "@theme/theme.config";
 import { motion } from "framer-motion";
 import { useState, type FormEvent } from "react";
@@ -13,7 +13,8 @@ export function Contact() {
   const [status, setStatus] = useState<"idle" | "sending" | "success">("idle");
   const MailIcon = brandIcons.ui.mail;
   const PhoneIcon = brandIcons.ui.phone;
-  const MapPinIcon = brandIcons.ui.mapPin;
+  const LinkedInIcon = brandIcons.ui.linkedin;
+  const XIcon = brandIcons.ui.x;
   const phoneHref = `tel:${themeConfig.contact.phone.replace(/\s/g, "")}`;
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -33,7 +34,7 @@ export function Contact() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             onSubmit={handleSubmit}
-            className="card-premium p-8 md:p-10 space-y-5 order-2 lg:order-1"
+            className="card-premium-static p-8 md:p-10 space-y-5 order-1 lg:order-1"
           >
             <div>
               <label htmlFor="name" className="block text-sm font-semibold text-brand-900 mb-2">
@@ -56,7 +57,8 @@ export function Contact() {
                 name="email"
                 type="email"
                 required
-                className="w-full px-4 py-3.5 rounded-md border border-surface-300 bg-white focus:border-brand-500 focus:ring-2 focus:ring-brand-500/15 outline-none transition-all"
+                dir="ltr"
+                className="w-full px-4 py-3.5 rounded-md border border-surface-300 bg-white focus:border-brand-500 focus:ring-2 focus:ring-brand-500/15 outline-none transition-all text-start"
               />
             </div>
             <div>
@@ -67,7 +69,8 @@ export function Contact() {
                 id="phone"
                 name="phone"
                 type="tel"
-                className="w-full px-4 py-3.5 rounded-md border border-surface-300 bg-white focus:border-brand-500 focus:ring-2 focus:ring-brand-500/15 outline-none transition-all"
+                dir="ltr"
+                className="w-full px-4 py-3.5 rounded-md border border-surface-300 bg-white focus:border-brand-500 focus:ring-2 focus:ring-brand-500/15 outline-none transition-all text-start"
               />
             </div>
             <div>
@@ -96,26 +99,27 @@ export function Contact() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="space-y-6 order-1 lg:order-2"
+            className="space-y-6 order-2 lg:order-2"
           >
-            <div className="card-premium p-8 flex gap-5">
+            <div className="card-premium-static p-8 md:p-10 flex gap-5">
               <div className="w-12 h-12 rounded-lg bg-brand-700 flex items-center justify-center shrink-0">
-                <MailIcon className="w-5 h-5 text-white" />
+                <MailIcon className="w-5 h-5 text-white" strokeWidth={ICON_STROKE} />
               </div>
               <div>
                 <h3 className="font-semibold text-brand-900 mb-1">{t.contact.email}</h3>
                 <a
                   href={`mailto:${themeConfig.contact.email}`}
                   className="text-brand-600 hover:text-brand-800 text-lg transition-colors"
+                  dir="ltr"
                 >
                   {themeConfig.contact.email}
                 </a>
               </div>
             </div>
 
-            <div className="card-premium p-8 flex gap-5">
+            <div className="card-premium-static p-8 md:p-10 flex gap-5">
               <div className="w-12 h-12 rounded-lg bg-brand-700 flex items-center justify-center shrink-0">
-                <PhoneIcon className="w-5 h-5 text-white" />
+                <PhoneIcon className="w-5 h-5 text-white" strokeWidth={ICON_STROKE} />
               </div>
               <div>
                 <h3 className="font-semibold text-brand-900 mb-1">{t.contact.phone}</h3>
@@ -129,18 +133,40 @@ export function Contact() {
               </div>
             </div>
 
-            <div className="card-premium p-8 flex gap-5">
+            <div className="card-premium-static p-8 md:p-10 flex gap-5">
               <div className="w-12 h-12 rounded-lg bg-brand-700 flex items-center justify-center shrink-0">
-                <MapPinIcon className="w-5 h-5 text-white" />
+                <LinkedInIcon className="w-5 h-5 text-white" strokeWidth={ICON_STROKE} />
               </div>
               <div>
-                <h3 className="font-semibold text-brand-900 mb-1">{t.contact.address}</h3>
-                <p className="text-surface-600 text-lg">{t.contact.location}</p>
+                <h3 className="font-semibold text-brand-900 mb-1">{t.footer.linkedin}</h3>
+                <a
+                  href={themeConfig.contact.social.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-brand-600 hover:text-brand-800 text-lg transition-colors"
+                  dir="ltr"
+                >
+                  {themeConfig.contact.social.linkedin.replace(/^https?:\/\//, "")}
+                </a>
               </div>
             </div>
 
-            <div className="rounded-lg border border-dashed border-brand-200 bg-brand-50/30 p-10 text-center text-brand-600 text-sm min-h-[220px] flex items-center justify-center">
-              {t.contact.mapPlaceholder}
+            <div className="card-premium-static p-8 md:p-10 flex gap-5">
+              <div className="w-12 h-12 rounded-lg bg-brand-700 flex items-center justify-center shrink-0">
+                <XIcon className="w-[1.125rem] h-[1.125rem] text-white" />
+              </div>
+              <div>
+                <h3 className="font-semibold text-brand-900 mb-1">{t.contact.social.x}</h3>
+                <a
+                  href={themeConfig.contact.social.x}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-brand-600 hover:text-brand-800 text-lg transition-colors"
+                  dir="ltr"
+                >
+                  {themeConfig.contact.social.x.replace(/^https?:\/\//, "")}
+                </a>
+              </div>
             </div>
           </motion.div>
         </div>
