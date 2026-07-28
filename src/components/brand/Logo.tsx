@@ -16,10 +16,10 @@ interface LogoProps {
 }
 
 const headerBox =
-  "block h-11 sm:h-12 md:h-[3.25rem] lg:h-14 w-[240px] sm:w-[300px] md:w-[360px] lg:w-[420px]";
+  "block h-9 xs:h-10 sm:h-12 md:h-[3.25rem] lg:h-14 w-[min(200px,52vw)] sm:w-[300px] md:w-[360px] lg:w-[420px] max-w-full";
 
 const footerBox =
-  "block h-10 sm:h-11 md:h-12 w-[200px] sm:w-[240px] md:w-[280px] lg:w-[320px]";
+  "block h-9 sm:h-11 md:h-12 w-[min(180px,55vw)] sm:w-[240px] md:w-[280px] lg:w-[320px] max-w-full";
 
 export function Logo({
   variant = "horizontal",
@@ -59,7 +59,7 @@ export function Logo({
   return (
     <Link
       href={href}
-      className="inline-flex shrink-0 items-center bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 rounded-sm"
+      className="inline-flex min-w-0 shrink items-center bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 rounded-sm"
     >
       {img}
     </Link>

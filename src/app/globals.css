@@ -34,10 +34,11 @@
   html {
     scroll-behavior: smooth;
     scroll-padding-top: calc(var(--header-height) + 1rem);
+    overflow-x: hidden;
   }
 
   body {
-    @apply bg-white text-surface-800 antialiased;
+    @apply bg-white text-surface-800 antialiased overflow-x-hidden;
   }
 
   ::selection {

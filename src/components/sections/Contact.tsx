@@ -34,7 +34,7 @@ export function Contact() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             onSubmit={handleSubmit}
-            className="card-premium-static p-8 md:p-10 space-y-5 order-1 lg:order-1"
+            className="card-premium-static p-6 sm:p-8 md:p-10 space-y-5 order-1 lg:order-1 min-w-0"
           >
             <div>
               <label htmlFor="name" className="block text-sm font-semibold text-brand-900 mb-2">
@@ -99,17 +99,17 @@ export function Contact() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="space-y-6 order-2 lg:order-2"
+            className="space-y-6 order-2 lg:order-2 min-w-0"
           >
-            <div className="card-premium-static p-8 md:p-10 flex gap-5">
+            <div className="card-premium-static p-6 sm:p-8 md:p-10 flex gap-4 sm:gap-5 min-w-0">
               <div className="w-12 h-12 rounded-lg bg-brand-700 flex items-center justify-center shrink-0">
                 <MailIcon className="w-5 h-5 text-white" strokeWidth={ICON_STROKE} />
               </div>
-              <div>
+              <div className="min-w-0 flex-1">
                 <h3 className="font-semibold text-brand-900 mb-1">{t.contact.email}</h3>
                 <a
                   href={`mailto:${themeConfig.contact.email}`}
-                  className="text-brand-600 hover:text-brand-800 text-lg transition-colors"
+                  className="text-brand-600 hover:text-brand-800 text-base sm:text-lg transition-colors break-all"
                   dir="ltr"
                 >
                   {themeConfig.contact.email}
@@ -117,15 +117,15 @@ export function Contact() {
               </div>
             </div>
 
-            <div className="card-premium-static p-8 md:p-10 flex gap-5">
+            <div className="card-premium-static p-6 sm:p-8 md:p-10 flex gap-4 sm:gap-5 min-w-0">
               <div className="w-12 h-12 rounded-lg bg-brand-700 flex items-center justify-center shrink-0">
                 <PhoneIcon className="w-5 h-5 text-white" strokeWidth={ICON_STROKE} />
               </div>
-              <div>
+              <div className="min-w-0 flex-1">
                 <h3 className="font-semibold text-brand-900 mb-1">{t.contact.phone}</h3>
                 <a
                   href={phoneHref}
-                  className="text-brand-600 hover:text-brand-800 text-lg transition-colors"
+                  className="text-brand-600 hover:text-brand-800 text-base sm:text-lg transition-colors break-all"
                   dir="ltr"
                 >
                   {themeConfig.contact.phone}
@@ -133,17 +133,17 @@ export function Contact() {
               </div>
             </div>
 
-            <div className="card-premium-static p-8 md:p-10 flex gap-5">
+            <div className="card-premium-static p-6 sm:p-8 md:p-10 flex gap-4 sm:gap-5 min-w-0">
               <div className="w-12 h-12 rounded-lg bg-brand-700 flex items-center justify-center shrink-0">
                 <LinkedInIcon className="w-5 h-5 text-white" strokeWidth={ICON_STROKE} />
               </div>
-              <div>
+              <div className="min-w-0 flex-1">
                 <h3 className="font-semibold text-brand-900 mb-1">{t.footer.linkedin}</h3>
                 <a
                   href={themeConfig.contact.social.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-brand-600 hover:text-brand-800 text-lg transition-colors"
+                  className="text-brand-600 hover:text-brand-800 text-base sm:text-lg transition-colors break-all"
                   dir="ltr"
                 >
                   {themeConfig.contact.social.linkedin.replace(/^https?:\/\//, "")}
@@ -151,17 +151,17 @@ export function Contact() {
               </div>
             </div>
 
-            <div className="card-premium-static p-8 md:p-10 flex gap-5">
+            <div className="card-premium-static p-6 sm:p-8 md:p-10 flex gap-4 sm:gap-5 min-w-0">
               <div className="w-12 h-12 rounded-lg bg-brand-700 flex items-center justify-center shrink-0">
                 <XIcon className="w-[1.125rem] h-[1.125rem] text-white" />
               </div>
-              <div>
+              <div className="min-w-0 flex-1">
                 <h3 className="font-semibold text-brand-900 mb-1">{t.contact.social.x}</h3>
                 <a
                   href={themeConfig.contact.social.x}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-brand-600 hover:text-brand-800 text-lg transition-colors"
+                  className="text-brand-600 hover:text-brand-800 text-base sm:text-lg transition-colors break-all"
                   dir="ltr"
                 >
                   {themeConfig.contact.social.x.replace(/^https?:\/\//, "")}

@@ -43,7 +43,7 @@ export function Header() {
       }`}
     >
       <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8 h-full">
-        <div className="flex items-center justify-between h-full gap-4">
+        <div className="flex items-center justify-between h-full gap-2 sm:gap-4 min-w-0">
           <Logo
             variant={scrolled ? "horizontal" : "horizontalLight"}
             size="header"
