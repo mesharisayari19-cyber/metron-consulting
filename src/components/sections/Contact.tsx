@@ -8,19 +8,57 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Button } from "@/components/ui/Button";
 import { useLocale } from "@/context/LocaleContext";
 
+type FormStatus = "idle" | "sending" | "success" | "error";
+
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 export function Contact() {
   const { t } = useLocale();
-  const [status, setStatus] = useState<"idle" | "sending" | "success">("idle");
+  const [status, setStatus] = useState<FormStatus>("idle");
   const MailIcon = brandIcons.ui.mail;
   const PhoneIcon = brandIcons.ui.phone;
   const LinkedInIcon = brandIcons.ui.linkedin;
   const XIcon = brandIcons.ui.x;
   const phoneHref = `tel:${themeConfig.contact.phone.replace(/\s/g, "")}`;
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setStatus("idle");
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    const name = String(formData.get("name") ?? "").trim();
+    const email = String(formData.get("email") ?? "").trim();
+    const phone = String(formData.get("phone") ?? "").trim();
+    const message = String(formData.get("message") ?? "").trim();
+
+    if (!name || !email || !message || !EMAIL_REGEX.test(email)) {
+      setStatus("error");
+      return;
+    }
+
     setStatus("sending");
-    setTimeout(() => setStatus("success"), 1200);
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name, email, phone, message }),
+      });
+
+      if (!response.ok) {
+        setStatus("error");
+        return;
+      }
+
+      form.reset();
+      setStatus("success");
+    } catch {
+      setStatus("error");
+    }
   };
 
   return (
@@ -34,6 +72,7 @@ export function Contact() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             onSubmit={handleSubmit}
+            noValidate
             className="card-premium-static p-6 sm:p-8 md:p-10 space-y-5 order-1 lg:order-1 min-w-0"
           >
             <div>
@@ -45,6 +84,8 @@ export function Contact() {
                 name="name"
                 type="text"
                 required
+                minLength={2}
+                autoComplete="name"
                 className="w-full px-4 py-3.5 rounded-md border border-surface-300 bg-white focus:border-brand-500 focus:ring-2 focus:ring-brand-500/15 outline-none transition-all"
               />
             </div>
@@ -57,6 +98,7 @@ export function Contact() {
                 name="email"
                 type="email"
                 required
+                autoComplete="email"
                 dir="ltr"
                 className="w-full px-4 py-3.5 rounded-md border border-surface-300 bg-white focus:border-brand-500 focus:ring-2 focus:ring-brand-500/15 outline-none transition-all text-start"
               />
@@ -69,6 +111,7 @@ export function Contact() {
                 id="phone"
                 name="phone"
                 type="tel"
+                autoComplete="tel"
                 dir="ltr"
                 className="w-full px-4 py-3.5 rounded-md border border-surface-300 bg-white focus:border-brand-500 focus:ring-2 focus:ring-brand-500/15 outline-none transition-all text-start"
               />
@@ -82,16 +125,28 @@ export function Contact() {
                 name="message"
                 rows={6}
                 required
+                minLength={5}
                 className="w-full px-4 py-3.5 rounded-md border border-surface-300 bg-white focus:border-brand-500 focus:ring-2 focus:ring-brand-500/15 outline-none transition-all resize-none"
               />
             </div>
+
             {status === "success" ? (
-              <p className="text-semantic-success text-sm font-medium">{t.contact.form.success}</p>
-            ) : (
-              <Button type="submit" variant="primary" size="lg">
+              <p className="text-semantic-success text-sm font-medium" role="status">
+                {t.contact.form.success}
+              </p>
+            ) : null}
+
+            {status === "error" ? (
+              <p className="text-red-600 text-sm font-medium" role="alert">
+                {t.contact.form.error}
+              </p>
+            ) : null}
+
+            {status !== "success" ? (
+              <Button type="submit" variant="primary" size="lg" disabled={status === "sending"}>
                 {status === "sending" ? t.contact.form.sending : t.contact.form.submit}
               </Button>
-            )}
+            ) : null}
           </motion.form>
 
           <motion.div

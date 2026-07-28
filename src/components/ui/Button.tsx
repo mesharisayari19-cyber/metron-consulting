@@ -18,6 +18,7 @@ interface ButtonProps {
   className?: string;
   icon?: ReactNode;
   external?: boolean;
+  disabled?: boolean;
 }
 
 const variants: Record<Variant, string> = {
@@ -46,8 +47,9 @@ export function Button({
   className = "",
   icon,
   external,
+  disabled = false,
 }: ButtonProps) {
-  const classes = `inline-flex items-center justify-center gap-2 font-medium rounded-md transition-all duration-200 ease-out ${variants[variant]} ${sizes[size]} ${className}`;
+  const classes = `inline-flex items-center justify-center gap-2 font-medium rounded-md transition-all duration-200 ease-out disabled:opacity-60 disabled:cursor-not-allowed disabled:pointer-events-none ${variants[variant]} ${sizes[size]} ${className}`;
 
   const content = (
     <>
@@ -89,9 +91,10 @@ export function Button({
     <motion.button
       type={type}
       onClick={onClick}
+      disabled={disabled}
       className={classes}
-      whileHover={{ y: -1 }}
-      whileTap={{ y: 0 }}
+      whileHover={disabled ? undefined : { y: -1 }}
+      whileTap={disabled ? undefined : { y: 0 }}
     >
       {content}
     </motion.button>

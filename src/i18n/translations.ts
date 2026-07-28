@@ -136,7 +136,8 @@ export const translations = {
         message: "الرسالة",
         submit: "إرسال الرسالة",
         sending: "جاري الإرسال...",
-        success: "تم إرسال رسالتكم بنجاح. سنتواصل معكم قريباً.",
+        success: "تم استلام رسالتك بنجاح، وسنقوم بالتواصل معك قريبًا.",
+        error: "تعذر إرسال الرسالة حاليًا، يرجى المحاولة لاحقًا.",
       },
       mapPlaceholder: "خريطة الموقع — قابلة للإضافة",
       social: {
@@ -304,7 +305,8 @@ export const translations = {
         message: "Message",
         submit: "Send Message",
         sending: "Sending...",
-        success: "Your message has been sent successfully. We will be in touch soon.",
+        success: "Your message has been received successfully. We will contact you soon.",
+        error: "Unable to send your message at this time. Please try again later.",
       },
       mapPlaceholder: "Location map — coming soon",
       social: {
