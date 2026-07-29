@@ -14,7 +14,7 @@ export function Team() {
       <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader title={t.team.title} subtitle={t.team.subtitle} />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 gap-6 lg:gap-8 items-stretch">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 gap-6 lg:gap-6 2xl:gap-8 items-stretch">
           {teamMembers.map((member, index) => {
             const displayName = isArabic ? member.name.ar : member.name.en;
             const points = isArabic ? member.bioPoints.ar : member.bioPoints.en;
@@ -28,20 +28,20 @@ export function Team() {
                 transition={{ delay: index * 0.07, duration: 0.5 }}
                 className="group flex flex-col card-premium overflow-hidden min-w-0 h-full transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[0_16px_40px_-14px_rgba(27,61,92,0.10)]"
               >
-                <div className="relative aspect-[4/3] sm:aspect-[3/4] bg-surface-100 overflow-hidden shrink-0">
+                <div className="relative aspect-[4/3] sm:aspect-[3/4] md:aspect-[7/9] lg:aspect-[4/5] 2xl:aspect-[3/4] bg-surface-100 overflow-hidden shrink-0">
                   <Image
                     src={member.image}
                     alt={displayName}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1536px) 33vw, 20vw"
-                    className="object-cover object-[50%_18%] scale-[1.12] transition-transform duration-300 ease-out group-hover:scale-[1.13]"
+                    className="object-cover object-[50%_18%] scale-[1.1] md:scale-[1.07] lg:scale-[1.05] 2xl:scale-[1.12] transition-transform duration-300 ease-out group-hover:scale-[1.11] md:group-hover:scale-[1.08] lg:group-hover:scale-[1.06] 2xl:group-hover:scale-[1.13]"
                   />
                   <div
                     className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-white/80 to-transparent"
                     aria-hidden
                   />
                 </div>
-                <div className="flex flex-col flex-1 p-4 sm:p-5 lg:p-6 border-t border-surface-100">
+                <div className="flex flex-col flex-1 p-4 sm:p-5 lg:p-5 2xl:p-6 border-t border-surface-100">
                   <h3 className="text-base lg:text-lg font-semibold text-brand-900 leading-snug">
                     {displayName}
                   </h3>
@@ -51,7 +51,7 @@ export function Team() {
                   <p className="text-brand-500/90 text-xs font-semibold mt-2 tracking-wide">
                     {isArabic ? member.yearsExperience.ar : member.yearsExperience.en}
                   </p>
-                  <ul className="mt-3 lg:mt-4 space-y-2 flex-1">
+                  <ul className="mt-3 lg:mt-3.5 2xl:mt-4 space-y-2 flex-1">
                     {points.map((point) => (
                       <li
                         key={point}
