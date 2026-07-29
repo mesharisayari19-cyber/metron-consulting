@@ -28,7 +28,7 @@ export function Team() {
                 transition={{ delay: index * 0.07, duration: 0.5 }}
                 className="group flex flex-col card-premium overflow-hidden min-w-0 h-full transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[0_16px_40px_-14px_rgba(27,61,92,0.10)]"
               >
-                <div className="relative aspect-[3/4] bg-surface-100 overflow-hidden shrink-0">
+                <div className="relative aspect-[4/3] sm:aspect-[3/4] bg-surface-100 overflow-hidden shrink-0">
                   <Image
                     src={member.image}
                     alt={displayName}
@@ -41,7 +41,7 @@ export function Team() {
                     aria-hidden
                   />
                 </div>
-                <div className="flex flex-col flex-1 p-5 lg:p-6 border-t border-surface-100">
+                <div className="flex flex-col flex-1 p-4 sm:p-5 lg:p-6 border-t border-surface-100">
                   <h3 className="text-base lg:text-lg font-semibold text-brand-900 leading-snug">
                     {displayName}
                   </h3>
