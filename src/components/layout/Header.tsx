@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { useLocale } from "@/context/LocaleContext";
 
 export function Header() {
-  const { t, toggleLocale, dir } = useLocale();
+  const { t, toggleLocale, setLocale, locale, dir } = useLocale();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const MenuIcon = brandIcons.ui.menu;
@@ -71,19 +71,48 @@ export function Header() {
           </nav>
 
           <div className="flex items-center gap-3">
-            <button
-              type="button"
-              onClick={toggleLocale}
-              className={`hidden sm:inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-full border transition-all duration-300 ${
+            <div
+              className={`hidden sm:inline-flex items-center gap-1 p-1 rounded-xl border transition-all duration-300 ${
                 scrolled
-                  ? "border-brand-200 text-brand-700 bg-brand-50/50 hover:bg-brand-100 hover:border-brand-300"
-                  : "border-white/25 text-white bg-white/5 hover:bg-white/15 hover:border-white/40"
+                  ? "border-brand-200 bg-white/90 shadow-[0_4px_14px_rgba(27,61,92,0.08)]"
+                  : "border-white/25 bg-white/10 backdrop-blur-sm"
               }`}
-              aria-label="Switch language"
+              role="group"
+              aria-label="Language switch"
             >
-              <GlobeIcon className="w-4 h-4" />
-              {t.common.switchLang}
-            </button>
+              <button
+                type="button"
+                onClick={() => setLocale("en")}
+                className={`px-4 py-1.5 rounded-lg text-sm font-semibold transition-all duration-200 ${
+                  locale === "en"
+                    ? scrolled
+                      ? "bg-brand-100 text-brand-900"
+                      : "bg-white/25 text-white"
+                    : scrolled
+                      ? "text-brand-500 hover:text-brand-700"
+                      : "text-white/70 hover:text-white"
+                }`}
+                aria-pressed={locale === "en"}
+              >
+                English
+              </button>
+              <button
+                type="button"
+                onClick={() => setLocale("ar")}
+                className={`px-4 py-1.5 rounded-lg text-sm font-semibold transition-all duration-200 ${
+                  locale === "ar"
+                    ? scrolled
+                      ? "bg-brand-100 text-brand-900"
+                      : "bg-white/25 text-white"
+                    : scrolled
+                      ? "text-brand-500 hover:text-brand-700"
+                      : "text-white/70 hover:text-white"
+                }`}
+                aria-pressed={locale === "ar"}
+              >
+                العربية
+              </button>
+            </div>
 
             <button
               type="button"

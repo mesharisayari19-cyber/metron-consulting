@@ -92,31 +92,6 @@ export const teamMembers: TeamMember[] = [
     image: "/assets/team/abdulmuhsen-almugherah.png",
   },
   {
-    id: "samer-almansour",
-    name: { ar: "سامر المنصور", en: "Samer Almansour" },
-    credentials: { ar: "خبير · CCO · CAMS", en: "Expert · CCO · CAMS" },
-    yearsExperience: { ar: "١٥+ سنة خبرة", en: "15+ years of experience" },
-    bioPoints: {
-      ar: [
-        "خبرة مهنية تزيد على 15 عامًا في القطاع المصرفي في مجالات الالتزام ومكافحة غسل الأموال وتمويل الإرهاب.",
-        "خبرة في قيادة وتطوير برامج الالتزام وتعزيز الأطر الرقابية والتنظيمية.",
-        "خبرة في تقييم مخاطر غسل الأموال وتمويل الإرهاب وتطوير السياسات والضوابط المرتبطة بها.",
-        "خبرة في التعامل مع الجهات الرقابية والإدارات التنفيذية بشأن متطلبات الالتزام والمخاطر التنظيمية.",
-        "حاصل على شهادات مهنية في الالتزام ومكافحة غسل الأموال (CCO و CAMS).",
-        "بكالوريوس وماجستير المالية — جامعة ولاية تينيسي وكلية الأمير محمد بن سلمان للإدارة وريادة الأعمال.",
-      ],
-      en: [
-        "15+ years of banking experience in compliance and AML/CFT.",
-        "Leadership experience in developing compliance programs and strengthening regulatory and control frameworks.",
-        "Expertise in AML/CFT risk assessments and related policies and controls.",
-        "Experience engaging with regulators and executive management on compliance requirements and regulatory risks.",
-        "CCO and CAMS certified.",
-        "Bachelor's and Master's in Finance — Tennessee State University and MBSC.",
-      ],
-    },
-    image: "/assets/team/samer-almansour.png",
-  },
-  {
     id: "hamad-almansor",
     name: { ar: "حمد المنصور", en: "Hamad Almansor" },
     credentials: { ar: "شريك · CIA", en: "Partner · CIA" },
@@ -140,5 +115,30 @@ export const teamMembers: TeamMember[] = [
       ],
     },
     image: "/assets/team/hamad-almansor.png",
+  },
+  {
+    id: "samer-almansour",
+    name: { ar: "سامر المنصور", en: "Samer Almansour" },
+    credentials: { ar: "خبير · CCO · CAMS", en: "Expert · CCO · CAMS" },
+    yearsExperience: { ar: "١٥+ سنة خبرة", en: "15+ years of experience" },
+    bioPoints: {
+      ar: [
+        "خبرة مهنية تزيد على 15 عامًا في القطاع المصرفي في مجالات الالتزام ومكافحة غسل الأموال وتمويل الإرهاب.",
+        "خبرة في قيادة وتطوير برامج الالتزام وتعزيز الأطر الرقابية والتنظيمية.",
+        "خبرة في تقييم مخاطر غسل الأموال وتمويل الإرهاب وتطوير السياسات والضوابط المرتبطة بها.",
+        "خبرة في التعامل مع الجهات الرقابية والإدارات التنفيذية بشأن متطلبات الالتزام والمخاطر التنظيمية.",
+        "حاصل على شهادات مهنية في الالتزام ومكافحة غسل الأموال (CCO و CAMS).",
+        "بكالوريوس وماجستير المالية — جامعة ولاية تينيسي وكلية الأمير محمد بن سلمان للإدارة وريادة الأعمال.",
+      ],
+      en: [
+        "15+ years of banking experience in compliance and AML/CFT.",
+        "Leadership experience in developing compliance programs and strengthening regulatory and control frameworks.",
+        "Expertise in AML/CFT risk assessments and related policies and controls.",
+        "Experience engaging with regulators and executive management on compliance requirements and regulatory risks.",
+        "CCO and CAMS certified.",
+        "Bachelor's and Master's in Finance — Tennessee State University and MBSC.",
+      ],
+    },
+    image: "/assets/team/samer-almansour.png",
   },
 ];

@@ -1,76 +1,115 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { useState } from "react";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { teamMembers } from "@/data/team";
 import { useLocale } from "@/context/LocaleContext";
 
 export function Team() {
   const { t, isArabic } = useLocale();
+  const shouldReduceMotion = useReducedMotion();
+  const sectionTitle = isArabic ? "فريقنا" : "Our Team";
 
   return (
-    <section id="team" className="section-executive bg-surface-50">
+    <section id="team" className="section-executive bg-surface-50 overflow-x-hidden">
       <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeader title={t.team.title} subtitle={t.team.subtitle} />
+        <SectionHeader title={sectionTitle} subtitle={t.team.subtitle} />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 gap-6 lg:gap-6 2xl:gap-8 items-stretch">
-          {teamMembers.map((member, index) => {
-            const displayName = isArabic ? member.name.ar : member.name.en;
-            const points = isArabic ? member.bioPoints.ar : member.bioPoints.en;
-
-            return (
-              <motion.article
-                key={member.id}
-                initial={{ opacity: 0, y: 28 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.07, duration: 0.5 }}
-                className="group flex flex-col card-premium overflow-hidden min-w-0 h-full transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[0_16px_40px_-14px_rgba(27,61,92,0.10)]"
-              >
-                <div className="relative aspect-[4/3] sm:aspect-[3/4] md:aspect-[7/9] lg:aspect-[4/5] 2xl:aspect-[3/4] bg-surface-100 overflow-hidden shrink-0">
-                  <Image
-                    src={member.image}
-                    alt={displayName}
-                    fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1536px) 33vw, 20vw"
-                    className="object-cover object-[50%_18%] scale-[1.1] md:scale-[1.07] lg:scale-[1.05] 2xl:scale-[1.12] transition-transform duration-300 ease-out group-hover:scale-[1.11] md:group-hover:scale-[1.08] lg:group-hover:scale-[1.06] 2xl:group-hover:scale-[1.13]"
-                  />
-                  <div
-                    className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-white/80 to-transparent"
-                    aria-hidden
-                  />
-                </div>
-                <div className="flex flex-col flex-1 p-4 sm:p-5 lg:p-5 2xl:p-6 border-t border-surface-100">
-                  <h3 className="text-base lg:text-lg font-semibold text-brand-900 leading-snug">
-                    {displayName}
-                  </h3>
-                  <p className="text-brand-600 text-xs lg:text-sm font-medium mt-1.5 tracking-wide leading-snug">
-                    {isArabic ? member.credentials.ar : member.credentials.en}
-                  </p>
-                  <p className="text-brand-500/90 text-xs font-semibold mt-2 tracking-wide">
-                    {isArabic ? member.yearsExperience.ar : member.yearsExperience.en}
-                  </p>
-                  <ul className="mt-3 lg:mt-3.5 2xl:mt-4 space-y-2 flex-1">
-                    {points.map((point) => (
-                      <li
-                        key={point}
-                        className="flex gap-2 text-surface-600 text-xs lg:text-sm leading-relaxed"
-                      >
-                        <span
-                          className="mt-[0.55rem] h-px w-2 shrink-0 bg-brand-400/80"
-                          aria-hidden
-                        />
-                        <span>{point}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </motion.article>
-            );
-          })}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6 items-start">
+          {teamMembers.map((member, index) => (
+            <motion.article
+              key={member.id}
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ delay: index * 0.06, duration: 0.45, ease: [0.25, 0.1, 0.25, 1] }}
+              className="card-premium p-6 text-center h-full"
+            >
+              <TeamCard member={member} isArabic={isArabic} />
+            </motion.article>
+          ))}
         </div>
       </div>
     </section>
+  );
+}
+
+type TeamCardProps = {
+  member: (typeof teamMembers)[number];
+  isArabic: boolean;
+};
+
+function TeamCard({ member, isArabic }: TeamCardProps) {
+  const [expanded, setExpanded] = useState(false);
+  const displayName = isArabic ? member.name.ar : member.name.en;
+  const credential = isArabic ? member.credentials.ar : member.credentials.en;
+  const points = isArabic ? member.bioPoints.ar : member.bioPoints.en;
+  const years = isArabic ? member.yearsExperience.ar : member.yearsExperience.en;
+  const credentialParts = credential
+    .split("·")
+    .map((part) => part.trim())
+    .filter(Boolean);
+  const title = credentialParts[0] ?? credential;
+  const certifications = credentialParts.slice(1).join(" · ");
+  const detailsLabel = isArabic ? "+ التفاصيل" : "+ Details";
+  const hideLabel = isArabic ? "− إخفاء التفاصيل" : "− Hide details";
+
+  return (
+    <div className="h-full flex flex-col">
+      <div className="mx-auto mb-4 h-24 w-24 rounded-full bg-surface-100 ring-8 ring-surface-50 overflow-hidden border border-surface-200">
+        <Image
+          src={member.image}
+          alt={displayName}
+          width={96}
+          height={96}
+          className="h-full w-full object-cover object-[50%_18%]"
+        />
+      </div>
+
+      <h3 className="text-xl font-bold text-brand-900 leading-snug">{displayName}</h3>
+      <p className="mt-1 text-surface-600 font-medium">{title}</p>
+      {certifications ? (
+        <p className="mt-1 text-sm text-surface-500 break-words">{certifications}</p>
+      ) : null}
+      <p className="mt-2 inline-flex mx-auto rounded-full px-2.5 py-1 bg-brand-50 text-brand-700 text-xs font-semibold">
+        {years}
+      </p>
+
+      <button
+        type="button"
+        onClick={() => setExpanded((prev) => !prev)}
+        aria-expanded={expanded}
+        className="mt-4 text-brand-700 font-semibold text-sm hover:text-brand-800 transition-colors duration-300 ease-out"
+      >
+        {expanded ? hideLabel : detailsLabel}
+      </button>
+
+      <AnimatePresence initial={false}>
+        {expanded ? (
+          <motion.div
+            key="details"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+            className="overflow-hidden text-start"
+          >
+            <ul className="mt-3 space-y-2 border-t border-surface-200 pt-3">
+              {points.map((point) => (
+                <li
+                  key={point}
+                  className="flex items-start gap-2 text-xs text-surface-600 leading-relaxed"
+                >
+                  <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-brand-400 shrink-0" aria-hidden />
+                  <span>{point}</span>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
+    </div>
   );
 }

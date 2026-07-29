@@ -47,11 +47,11 @@ export function Services() {
                   {isArabic ? service.title.ar : service.title.en}
                 </h3>
 
-                <p className="text-surface-600 leading-relaxed text-base md:text-lg mb-0 max-w-prose">
+                <p className="text-surface-600 leading-relaxed text-base md:text-lg mb-6 max-w-prose">
                   {isArabic ? service.description.ar : service.description.en}
                 </p>
 
-                <div className="mt-auto pt-8 border-t border-surface-200/70">
+                <div className="mt-0 pt-6 border-t border-surface-200/70">
                   <h4
                     className={`text-sm font-bold text-brand-600 mb-5 ${
                       isArabic ? "tracking-normal normal-case" : "tracking-widest uppercase"
@@ -59,14 +59,17 @@ export function Services() {
                   >
                     {t.services.subServicesHeading}
                   </h4>
-                  <ul className="space-y-5">
+                  <ul className="space-y-4">
                     {subList.map((item) => (
                       <li
                         key={item}
-                        className="flex gap-3 text-surface-700 leading-relaxed text-sm md:text-base"
+                        className="flex items-start gap-3 text-surface-700 leading-relaxed text-sm md:text-base"
                       >
-                        <span className="mt-[0.65rem] h-px w-3 shrink-0 bg-brand-400/80" aria-hidden />
-                        <span>{item}</span>
+                        <span
+                          className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500/90 shadow-[0_0_0_3px_rgba(27,61,92,0.08)]"
+                          aria-hidden
+                        />
+                        <span>{item.replace(/^\s*[-–—]\s*/, "")}</span>
                       </li>
                     ))}
                   </ul>

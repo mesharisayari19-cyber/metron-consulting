@@ -154,73 +154,79 @@ export function Contact() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="space-y-5 order-2 lg:order-2 min-w-0"
+            className="order-2 lg:order-2 min-w-0"
           >
-            <div className="card-premium-static p-6 sm:p-8 md:p-10 flex gap-4 sm:gap-5 min-w-0">
-              <div className="w-12 h-12 rounded-lg bg-brand-700 flex items-center justify-center shrink-0">
-                <MailIcon className="w-5 h-5 text-white" strokeWidth={ICON_STROKE} />
-              </div>
-              <div className="min-w-0 flex-1 flex flex-col justify-center">
-                <h3 className="font-semibold text-brand-900">{t.contact.email}</h3>
-                <a
-                  href={`mailto:${themeConfig.contact.email}`}
-                  className="mt-1.5 text-brand-600 hover:text-brand-800 text-sm sm:text-base transition-colors duration-200 ease-out break-all"
-                  dir="ltr"
-                >
-                  {themeConfig.contact.email}
-                </a>
-              </div>
-            </div>
+            <div className="card-premium-static p-6 sm:p-8 md:p-10">
+              <h3 className="text-2xl font-semibold text-brand-900 mb-8">{t.contact.title}</h3>
 
-            <div className="card-premium-static p-6 sm:p-8 md:p-10 flex gap-4 sm:gap-5 min-w-0">
-              <div className="w-12 h-12 rounded-lg bg-brand-700 flex items-center justify-center shrink-0">
-                <PhoneIcon className="w-5 h-5 text-white" strokeWidth={ICON_STROKE} />
-              </div>
-              <div className="min-w-0 flex-1 flex flex-col justify-center">
-                <h3 className="font-semibold text-brand-900">{t.contact.phone}</h3>
-                <a
-                  href={phoneHref}
-                  className="mt-1.5 text-brand-600 hover:text-brand-800 text-sm sm:text-base transition-colors duration-200 ease-out break-all"
-                  dir="ltr"
-                >
-                  {themeConfig.contact.phone}
-                </a>
-              </div>
-            </div>
+              <div className="space-y-7">
+                <div className="flex items-start justify-between gap-4">
+                  <div className="min-w-0">
+                    <p className="text-surface-500 text-lg font-semibold">{t.contact.email}</p>
+                    <a
+                      href={`mailto:${themeConfig.contact.email}`}
+                      className="mt-2 block text-brand-900 text-2xl font-semibold leading-tight break-all hover:text-brand-700 transition-colors duration-200 ease-out"
+                      dir="ltr"
+                    >
+                      {themeConfig.contact.email}
+                    </a>
+                  </div>
+                  <div className="w-10 h-10 rounded-lg border border-brand-100 bg-brand-50 flex items-center justify-center shrink-0">
+                    <MailIcon className="w-5 h-5 text-brand-600" strokeWidth={ICON_STROKE} />
+                  </div>
+                </div>
 
-            <div className="card-premium-static p-6 sm:p-8 md:p-10 flex gap-4 sm:gap-5 min-w-0">
-              <div className="w-12 h-12 rounded-lg bg-brand-700 flex items-center justify-center shrink-0">
-                <LinkedInIcon className="w-5 h-5 text-white" strokeWidth={ICON_STROKE} />
-              </div>
-              <div className="min-w-0 flex-1 flex flex-col justify-center">
-                <h3 className="font-semibold text-brand-900">{t.footer.linkedin}</h3>
-                <a
-                  href={themeConfig.contact.social.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-1.5 text-brand-600 hover:text-brand-800 text-sm sm:text-base transition-colors duration-200 ease-out break-all"
-                  dir="ltr"
-                >
-                  {themeConfig.contact.social.linkedin.replace(/^https?:\/\//, "")}
-                </a>
-              </div>
-            </div>
+                <div className="flex items-start justify-between gap-4">
+                  <div className="min-w-0">
+                    <p className="text-surface-500 text-lg font-semibold">{t.contact.phone}</p>
+                    <a
+                      href={phoneHref}
+                      className="mt-2 block text-brand-900 text-2xl font-semibold leading-tight break-all hover:text-brand-700 transition-colors duration-200 ease-out"
+                      dir="ltr"
+                    >
+                      {themeConfig.contact.phone}
+                    </a>
+                  </div>
+                  <div className="w-10 h-10 rounded-lg border border-brand-100 bg-brand-50 flex items-center justify-center shrink-0">
+                    <PhoneIcon className="w-5 h-5 text-brand-600" strokeWidth={ICON_STROKE} />
+                  </div>
+                </div>
 
-            <div className="card-premium-static p-6 sm:p-8 md:p-10 flex gap-4 sm:gap-5 min-w-0">
-              <div className="w-12 h-12 rounded-lg bg-brand-700 flex items-center justify-center shrink-0">
-                <XIcon className="w-[1.125rem] h-[1.125rem] text-white" />
-              </div>
-              <div className="min-w-0 flex-1 flex flex-col justify-center">
-                <h3 className="font-semibold text-brand-900">{t.contact.social.x}</h3>
-                <a
-                  href={themeConfig.contact.social.x}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-1.5 text-brand-600 hover:text-brand-800 text-sm sm:text-base transition-colors duration-200 ease-out break-all"
-                  dir="ltr"
-                >
-                  {themeConfig.contact.social.x.replace(/^https?:\/\//, "")}
-                </a>
+                <div className="pt-2 border-t border-surface-200/80">
+                  <p className="text-surface-500 text-base font-semibold mb-4">{t.footer.linkedin} & {t.contact.social.x}</p>
+                  <div className="grid sm:grid-cols-2 gap-3">
+                    <a
+                      href={themeConfig.contact.social.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="rounded-lg border border-surface-200/90 bg-white px-4 py-3 hover:border-brand-200 hover:bg-brand-50/40 transition-all duration-200 ease-out"
+                      dir="ltr"
+                    >
+                      <div className="flex items-center gap-2 text-brand-700 font-semibold">
+                        <LinkedInIcon className="w-4 h-4" strokeWidth={ICON_STROKE} />
+                        <span>{t.footer.linkedin}</span>
+                      </div>
+                      <p className="mt-1 text-sm text-surface-600 break-all">
+                        {themeConfig.contact.social.linkedin.replace(/^https?:\/\//, "")}
+                      </p>
+                    </a>
+                    <a
+                      href={themeConfig.contact.social.x}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="rounded-lg border border-surface-200/90 bg-white px-4 py-3 hover:border-brand-200 hover:bg-brand-50/40 transition-all duration-200 ease-out"
+                      dir="ltr"
+                    >
+                      <div className="flex items-center gap-2 text-brand-700 font-semibold">
+                        <XIcon className="w-4 h-4" />
+                        <span>{t.contact.social.x}</span>
+                      </div>
+                      <p className="mt-1 text-sm text-surface-600 break-all">
+                        {themeConfig.contact.social.x.replace(/^https?:\/\//, "")}
+                      </p>
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           </motion.div>
