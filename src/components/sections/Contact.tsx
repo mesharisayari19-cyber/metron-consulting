@@ -4,22 +4,56 @@ import { ICON_STROKE, brandIcons } from "@branding/icons";
 import { themeConfig } from "@theme/theme.config";
 import { motion } from "framer-motion";
 import { useState, type FormEvent } from "react";
+import type { CountryCode } from "libphonenumber-js";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Button } from "@/components/ui/Button";
+import { PhoneField } from "@/components/ui/PhoneField";
 import { useLocale } from "@/context/LocaleContext";
+import { isAllowedNameText, isValidPersonName, toE164 } from "@/lib/contact-form";
 
 type FormStatus = "idle" | "sending" | "success" | "error";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+const contactLinkClass =
+  "flex min-w-0 flex-col items-center justify-center gap-2 rounded-lg border border-brand-100 bg-brand-50 px-3 py-4 text-center text-brand-700 transition-colors duration-200 ease-out hover:border-brand-200 hover:bg-brand-100/70 hover:text-brand-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2";
+
+const contactValueClass = "max-w-full text-xs font-medium leading-snug text-brand-800";
+
+function ContactValue({ value }: { value: string }) {
+  const parts = value.split("/");
+
+  return (
+    <span dir="ltr" className={contactValueClass}>
+      {parts.map((part, index) => (
+        <span key={`${part}-${index}`}>
+          {part}
+          {index < parts.length - 1 ? (
+            <>
+              /<wbr />
+            </>
+          ) : null}
+        </span>
+      ))}
+    </span>
+  );
+}
+
 export function Contact() {
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
   const [status, setStatus] = useState<FormStatus>("idle");
+  const [name, setName] = useState("");
+  const [nameError, setNameError] = useState("");
+  const [phoneCountry, setPhoneCountry] = useState<CountryCode>("SA");
+  const [phoneNational, setPhoneNational] = useState("");
+  const [phoneError, setPhoneError] = useState("");
   const MailIcon = brandIcons.ui.mail;
   const PhoneIcon = brandIcons.ui.phone;
   const LinkedInIcon = brandIcons.ui.linkedin;
   const XIcon = brandIcons.ui.x;
   const phoneHref = `tel:${themeConfig.contact.phone.replace(/\s/g, "")}`;
+
+  const showPhoneError = () => setPhoneError(t.contact.form.phoneInvalid);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -27,16 +61,33 @@ export function Contact() {
 
     const form = e.currentTarget;
     const formData = new FormData(form);
-
-    const name = String(formData.get("name") ?? "").trim();
+    const nameValue = name.trim();
     const email = String(formData.get("email") ?? "").trim();
-    const phone = String(formData.get("phone") ?? "").trim();
     const message = String(formData.get("message") ?? "").trim();
+    const phoneValue = phoneNational.trim() ? toE164(phoneCountry, phoneNational) : "";
 
-    if (!name || !email || !message || !EMAIL_REGEX.test(email)) {
-      setStatus("error");
-      return;
+    let invalid = false;
+
+    if (!isValidPersonName(nameValue)) {
+      setNameError(t.contact.form.nameInvalid);
+      invalid = true;
+    } else {
+      setNameError("");
     }
+
+    if (phoneNational.trim() && !phoneValue) {
+      showPhoneError();
+      invalid = true;
+    } else {
+      setPhoneError("");
+    }
+
+    if (!email || !message || !EMAIL_REGEX.test(email)) {
+      setStatus("error");
+      invalid = true;
+    }
+
+    if (invalid || (phoneNational.trim() && !phoneValue)) return;
 
     setStatus("sending");
 
@@ -46,7 +97,12 @@ export function Contact() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name, email, phone, message }),
+        body: JSON.stringify({
+          name: nameValue,
+          email,
+          phone: phoneValue ?? "",
+          message,
+        }),
       });
 
       if (!response.ok) {
@@ -55,6 +111,11 @@ export function Contact() {
       }
 
       form.reset();
+      setName("");
+      setPhoneNational("");
+      setPhoneCountry("SA");
+      setNameError("");
+      setPhoneError("");
       setStatus("success");
     } catch {
       setStatus("error");
@@ -86,8 +147,36 @@ export function Contact() {
                 required
                 minLength={2}
                 autoComplete="name"
-                className="w-full px-4 py-3.5 rounded-md border border-surface-300 bg-white focus:border-brand-500 focus:ring-2 focus:ring-brand-500/15 outline-none transition-all"
+                value={name}
+                aria-invalid={nameError ? true : undefined}
+                aria-describedby={nameError ? "name-error" : undefined}
+                onChange={(event) => {
+                  const next = event.target.value;
+                  if (!isAllowedNameText(next)) {
+                    setNameError(t.contact.form.nameInvalid);
+                    return;
+                  }
+                  setName(next);
+                  if (nameError) setNameError("");
+                }}
+                onPaste={(event) => {
+                  const pasted = event.clipboardData.getData("text");
+                  if (!isAllowedNameText(pasted)) {
+                    event.preventDefault();
+                    setNameError(t.contact.form.nameInvalid);
+                  }
+                }}
+                className={`w-full px-4 py-3.5 rounded-md border bg-white outline-none transition-all ${
+                  nameError
+                    ? "border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/15"
+                    : "border-surface-300 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/15"
+                }`}
               />
+              {nameError ? (
+                <p id="name-error" className="mt-2 text-sm font-medium text-red-600" role="alert">
+                  {nameError}
+                </p>
+              ) : null}
             </div>
             <div>
               <label htmlFor="email" className="block text-sm font-semibold text-brand-900 mb-2">
@@ -107,13 +196,22 @@ export function Contact() {
               <label htmlFor="phone" className="block text-sm font-semibold text-brand-900 mb-2">
                 {t.contact.phone}
               </label>
-              <input
+              <PhoneField
                 id="phone"
-                name="phone"
-                type="tel"
-                autoComplete="tel"
-                dir="ltr"
-                className="w-full px-4 py-3.5 rounded-md border border-surface-300 bg-white focus:border-brand-500 focus:ring-2 focus:ring-brand-500/15 outline-none transition-all text-start"
+                locale={locale}
+                country={phoneCountry}
+                nationalNumber={phoneNational}
+                onCountryChange={setPhoneCountry}
+                onNationalNumberChange={setPhoneNational}
+                invalidMessage={t.contact.form.phoneInvalid}
+                labels={{
+                  country: t.contact.phoneField.countryLabel,
+                  search: t.contact.phoneField.searchPlaceholder,
+                  empty: t.contact.phoneField.emptyResults,
+                }}
+                error={phoneError}
+                onInvalid={showPhoneError}
+                onClearError={() => setPhoneError("")}
               />
             </div>
             <div>
@@ -157,76 +255,33 @@ export function Contact() {
             className="order-2 lg:order-2 min-w-0"
           >
             <div className="card-premium-static p-6 sm:p-8 md:p-10">
-              <h3 className="text-2xl font-semibold text-brand-900 mb-8">{t.contact.title}</h3>
-
-              <div className="space-y-7">
-                <div className="flex items-start justify-between gap-4">
-                  <div className="min-w-0">
-                    <p className="text-surface-500 text-lg font-semibold">{t.contact.email}</p>
-                    <a
-                      href={`mailto:${themeConfig.contact.email}`}
-                      className="mt-2 block text-brand-900 text-2xl font-semibold leading-tight break-all hover:text-brand-700 transition-colors duration-200 ease-out"
-                      dir="ltr"
-                    >
-                      {themeConfig.contact.email}
-                    </a>
-                  </div>
-                  <div className="w-10 h-10 rounded-lg border border-brand-100 bg-brand-50 flex items-center justify-center shrink-0">
-                    <MailIcon className="w-5 h-5 text-brand-600" strokeWidth={ICON_STROKE} />
-                  </div>
-                </div>
-
-                <div className="flex items-start justify-between gap-4">
-                  <div className="min-w-0">
-                    <p className="text-surface-500 text-lg font-semibold">{t.contact.phone}</p>
-                    <a
-                      href={phoneHref}
-                      className="mt-2 block text-brand-900 text-2xl font-semibold leading-tight break-all hover:text-brand-700 transition-colors duration-200 ease-out"
-                      dir="ltr"
-                    >
-                      {themeConfig.contact.phone}
-                    </a>
-                  </div>
-                  <div className="w-10 h-10 rounded-lg border border-brand-100 bg-brand-50 flex items-center justify-center shrink-0">
-                    <PhoneIcon className="w-5 h-5 text-brand-600" strokeWidth={ICON_STROKE} />
-                  </div>
-                </div>
-
-                <div className="pt-2 border-t border-surface-200/80">
-                  <p className="text-surface-500 text-base font-semibold mb-4">{t.footer.linkedin} & {t.contact.social.x}</p>
-                  <div className="grid sm:grid-cols-2 gap-3">
-                    <a
-                      href={themeConfig.contact.social.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="rounded-lg border border-surface-200/90 bg-white px-4 py-3 hover:border-brand-200 hover:bg-brand-50/40 transition-all duration-200 ease-out"
-                      dir="ltr"
-                    >
-                      <div className="flex items-center gap-2 text-brand-700 font-semibold">
-                        <LinkedInIcon className="w-4 h-4" strokeWidth={ICON_STROKE} />
-                        <span>{t.footer.linkedin}</span>
-                      </div>
-                      <p className="mt-1 text-sm text-surface-600 break-all">
-                        {themeConfig.contact.social.linkedin.replace(/^https?:\/\//, "")}
-                      </p>
-                    </a>
-                    <a
-                      href={themeConfig.contact.social.x}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="rounded-lg border border-surface-200/90 bg-white px-4 py-3 hover:border-brand-200 hover:bg-brand-50/40 transition-all duration-200 ease-out"
-                      dir="ltr"
-                    >
-                      <div className="flex items-center gap-2 text-brand-700 font-semibold">
-                        <XIcon className="w-4 h-4" />
-                        <span>{t.contact.social.x}</span>
-                      </div>
-                      <p className="mt-1 text-sm text-surface-600 break-all">
-                        {themeConfig.contact.social.x.replace(/^https?:\/\//, "")}
-                      </p>
-                    </a>
-                  </div>
-                </div>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <a href={`mailto:${themeConfig.contact.email}`} className={contactLinkClass}>
+                  <MailIcon className="h-6 w-6" strokeWidth={ICON_STROKE} />
+                  <ContactValue value={themeConfig.contact.email} />
+                </a>
+                <a href={phoneHref} className={contactLinkClass}>
+                  <PhoneIcon className="h-6 w-6" strokeWidth={ICON_STROKE} />
+                  <ContactValue value={themeConfig.contact.phone} />
+                </a>
+                <a
+                  href={themeConfig.contact.social.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={contactLinkClass}
+                >
+                  <LinkedInIcon className="h-6 w-6" strokeWidth={ICON_STROKE} />
+                  <ContactValue value={themeConfig.contact.social.linkedin} />
+                </a>
+                <a
+                  href={themeConfig.contact.social.x}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={contactLinkClass}
+                >
+                  <XIcon className="h-6 w-6" />
+                  <ContactValue value={themeConfig.contact.social.x} />
+                </a>
               </div>
             </div>
           </motion.div>

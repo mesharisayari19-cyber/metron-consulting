@@ -12,7 +12,7 @@ export function Services() {
   return (
     <section id="services" className="section-executive bg-white">
       <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeader title={t.services.title} subtitle={t.services.subtitle} />
+        <SectionHeader title={t.services.title} />
 
         <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
           {services.map((service, index) => {

@@ -62,7 +62,7 @@ export const teamMembers: TeamMember[] = [
         "Bachelor's degree in Accounting — King Saud University.",
       ],
     },
-    image: "/assets/team/meshari-alsayari.jpg",
+    image: "/assets/team/meshari-alsayari.png",
   },
   {
     id: "abdulmuhsen-almugherah",

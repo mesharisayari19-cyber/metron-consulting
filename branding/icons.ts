@@ -72,6 +72,17 @@ export const brandIcons = {
       sustainableImpact: LineChart,
       clientFocus: Users,
     },
+    whyMetronPoints: [
+      Landmark,
+      BriefcaseBusiness,
+      ScanEye,
+      Target,
+      Award,
+      Shield,
+      Scale,
+      Users,
+      BadgeCheck,
+    ],
   },
   sectors: {
     government: Landmark,

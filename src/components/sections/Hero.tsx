@@ -32,7 +32,7 @@ export function Hero() {
       <div className="absolute inset-0 bg-brand-950/60" aria-hidden />
 
       {/* Layer 3 — Metron pattern (very subtle) */}
-      <BrandPattern opacity={0.125} />
+      <BrandPattern opacity={0.05} />
 
       <div
         className="pointer-events-none absolute bottom-0 inset-x-0 h-40 bg-gradient-to-t from-brand-950 to-transparent"
@@ -46,9 +46,6 @@ export function Hero() {
           transition={{ duration: 0.65, ease: [0.25, 0.1, 0.25, 1] }}
           className="text-start max-w-3xl"
         >
-          <p className={`${isArabic ? "text-eyebrow-ar" : "text-eyebrow-en"} text-brand-300 mb-5 drop-shadow-sm`}>
-            {t.hero.eyebrow}
-          </p>
           <h1 className="text-3xl sm:text-4xl md:text-5xl xl:text-[3.25rem] font-semibold text-white leading-[1.2] tracking-tight text-balance drop-shadow-[0_2px_12px_rgba(0,0,0,0.25)]">
             {t.hero.title}
           </h1>

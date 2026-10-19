@@ -34,9 +34,6 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-14 items-start">
           <div className="lg:col-span-2">
             <Logo variant="horizontalLight" size="footer" href="#home" />
-            <p className="mt-7 text-sm leading-relaxed max-w-md text-white/60">
-              {t.footer.summary}
-            </p>
             <div className="mt-7 flex items-center gap-3.5">
               {linkedinUrl ? (
                 <a

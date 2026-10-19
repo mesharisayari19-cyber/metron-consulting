@@ -8,14 +8,14 @@ import { teamMembers } from "@/data/team";
 import { useLocale } from "@/context/LocaleContext";
 
 export function Team() {
-  const { t, isArabic } = useLocale();
+  const { isArabic } = useLocale();
   const shouldReduceMotion = useReducedMotion();
   const sectionTitle = isArabic ? "فريقنا" : "Our Team";
 
   return (
     <section id="team" className="section-executive bg-surface-50 overflow-x-hidden">
       <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeader title={sectionTitle} subtitle={t.team.subtitle} />
+        <SectionHeader title={sectionTitle} />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6 items-start">
           {teamMembers.map((member, index) => (
@@ -58,13 +58,14 @@ function TeamCard({ member, isArabic }: TeamCardProps) {
 
   return (
     <div className="h-full flex flex-col">
-      <div className="mx-auto mb-4 h-24 w-24 rounded-full bg-surface-100 ring-8 ring-surface-50 overflow-hidden border border-surface-200">
+      <div className="mx-auto mb-4 h-24 w-24 rounded-full bg-surface-100 overflow-hidden">
         <Image
           src={member.image}
           alt={displayName}
-          width={96}
-          height={96}
-          className="h-full w-full object-cover object-[50%_18%]"
+          width={384}
+          height={384}
+          sizes="384px"
+          className="h-full w-full object-cover object-center"
         />
       </div>
 

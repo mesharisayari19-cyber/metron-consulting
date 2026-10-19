@@ -19,6 +19,7 @@ const valueKeys = [
 ] as const;
 
 const valueIcons = brandIcons.about.values;
+const whyMetronPointIcons = brandIcons.about.whyMetronPoints;
 
 export function About() {
   const { t } = useLocale();
@@ -70,7 +71,7 @@ export function About() {
     <section id="about" className="section-executive bg-surface-50">
       <div id="why-metron" className="scroll-mt-24 h-0" aria-hidden="true" />
       <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeader title={about.title} subtitle={about.subtitle} />
+        <SectionHeader title={about.title} />
 
         <div
           className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 md:mb-10 max-w-full"
@@ -175,14 +176,26 @@ export function About() {
               )}
 
               {active === "whyMetron" && about.whyMetronTab?.points && (
-                <ul className="space-y-4 max-w-3xl">
-                  {about.whyMetronTab.points.map((point) => (
-                    <li key={point} className="flex gap-3 text-surface-700 leading-relaxed text-base md:text-lg">
-                      <span className="w-1.5 h-1.5 rounded-full bg-brand-500 mt-2.5 shrink-0" />
-                      <span>{point}</span>
-                    </li>
-                  ))}
-                </ul>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
+                  {about.whyMetronTab.points.map((point, index) => {
+                    const PointIcon = whyMetronPointIcons[index];
+                    if (!PointIcon) return null;
+
+                    return (
+                      <article key={point} className="value-card h-full p-5 md:p-6 text-center">
+                        <div className="icon-container-premium mx-auto mb-4 h-12 w-12 rounded-full">
+                          <PointIcon
+                            className="h-5 w-5 text-brand-700"
+                            strokeWidth={ICON_STROKE}
+                          />
+                        </div>
+                        <p className="text-sm font-medium leading-relaxed text-brand-900 md:text-base">
+                          {point}
+                        </p>
+                      </article>
+                    );
+                  })}
+                </div>
               )}
             </motion.div>
           </AnimatePresence>
