@@ -10,6 +10,15 @@ export const CONTACT_TO_EMAIL = "contact@metron.sa";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_TYPING = /^\+?[\d\s()-]*$/;
+const HIDDEN_DIAL_COUNTRIES = new Set<CountryCode>(["IL"]);
+const COUNTRY_NAME_OVERRIDES: Record<"ar" | "en", Partial<Record<CountryCode, string>>> = {
+  ar: { PS: "فلسطين" },
+  en: { PS: "Palestine" },
+};
+
+function isHiddenDialCountry(country: CountryCode | undefined): boolean {
+  return country !== undefined && HIDDEN_DIAL_COUNTRIES.has(country);
+}
 
 export interface ContactFormPayload {
   name: string;
@@ -56,7 +65,7 @@ export function toE164(country: CountryCode, nationalNumber: string): string | n
     ? parsePhoneNumberFromString(trimmed)
     : parsePhoneNumberFromString(trimmed, country);
 
-  if (!parsed?.isValid()) return null;
+  if (!parsed?.isValid() || isHiddenDialCountry(parsed.country)) return null;
   return parsed.number;
 }
 
@@ -68,7 +77,7 @@ export function normalizePastedPhone(
   if (!cleaned || !/\d/.test(cleaned)) return null;
 
   const international = cleaned.startsWith("+") ? parsePhoneNumberFromString(cleaned) : undefined;
-  if (international?.isValid() && international.country) {
+  if (international?.isValid() && international.country && !isHiddenDialCountry(international.country)) {
     return { country: international.country, national: international.formatNational() };
   }
 
@@ -82,16 +91,19 @@ export function normalizePastedPhone(
 
 export function isValidOptionalPhone(phone: string): boolean {
   if (!phone) return true;
-  return isValidPhoneNumber(phone);
+  if (!isValidPhoneNumber(phone)) return false;
+  return !isHiddenDialCountry(parsePhoneNumberFromString(phone)?.country);
 }
 
 export function listDialCountries(locale: "ar" | "en"): DialCountry[] {
   const names = new Intl.DisplayNames([locale], { type: "region" });
-  const countries = getCountries().map((iso) => ({
-    iso,
-    dial: getCountryCallingCode(iso),
-    name: names.of(iso) ?? iso,
-  }));
+  const countries = getCountries()
+    .filter((iso) => !isHiddenDialCountry(iso))
+    .map((iso) => ({
+      iso,
+      dial: getCountryCallingCode(iso),
+      name: COUNTRY_NAME_OVERRIDES[locale][iso] ?? names.of(iso) ?? iso,
+    }));
 
   countries.sort((a, b) => a.name.localeCompare(b.name, locale));
 
