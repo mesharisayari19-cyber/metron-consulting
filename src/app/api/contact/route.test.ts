@@ -199,6 +199,17 @@ describe("POST /api/contact", () => {
     expect(mockSend).not.toHaveBeenCalled();
   });
 
+  it("never calls Resend when rate limiting rejects or cannot be verified", async () => {
+    for (const decision of ["limit", "unavailable"] as const) {
+      mockSend.mockClear();
+      mockRateLimit.mockResolvedValue(decision);
+      const response = await postContact(JSON.stringify(validPayload));
+
+      expect(mockSend).not.toHaveBeenCalled();
+      expect([429, 503]).toContain(response.status);
+    }
+  });
+
   it("rejects a honeypot submission", async () => {
     const response = await postContact(
       JSON.stringify({ ...validPayload, companyWebsite: "https://spam.example" })

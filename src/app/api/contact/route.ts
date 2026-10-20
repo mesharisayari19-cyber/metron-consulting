@@ -6,11 +6,7 @@ import {
   parseContactFormPayload,
   validateContactForm,
 } from "@/lib/contact-form";
-import {
-  checkContactRateLimit,
-  contactClientKey,
-  isDeployedContactEnvironment,
-} from "@/lib/contact-rate-limit";
+import { checkContactRateLimit, contactClientKey } from "@/lib/contact-rate-limit";
 import { readContactRequest } from "@/lib/contact-request";
 
 type ContactErrorCode = "invalid_payload" | "server_config" | "send_failed" | "rate_limited";
@@ -33,10 +29,8 @@ export async function POST(request: Request) {
       return contactError("rate_limited", 429);
     }
     if (decision === "unavailable") {
-      console.error("Contact form: shared rate limiter is not configured.");
-      if (isDeployedContactEnvironment()) {
-        return contactError("server_config", 503);
-      }
+      console.error("Contact form: shared rate limiter could not be verified.");
+      return contactError("server_config", 503);
     }
 
     const body = await readContactRequest(request);
