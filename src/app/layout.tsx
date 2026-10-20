@@ -19,13 +19,17 @@ const arabicFont = IBM_Plex_Sans_Arabic({
   display: "swap",
 });
 
+const officialSite = "https://www.metron.sa";
+const socialTitle = "ميترون للاستشارات | Metron Consulting";
+const socialDescription = `شركة سعودية متخصصة في خدمات المراجعة الداخلية والحوكمة وإدارة المخاطر والالتزام والاستشارات الإدارية. ${themeConfig.seo.defaultDescription.en}`;
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://metron-consulting.vercel.app"),
+  metadataBase: new URL(officialSite),
   title: {
-    default: "Metron | ميترون للاستشارات المهنية",
+    default: socialTitle,
     template: "%s | Metron",
   },
-  description: themeConfig.seo.defaultDescription.en,
+  description: socialDescription,
   alternates: {
     canonical: "/",
   },
@@ -41,25 +45,35 @@ export const metadata: Metadata = {
     "حوكمة",
   ],
   openGraph: {
-    title: "Metron | ميترون للاستشارات المهنية",
-    description: themeConfig.seo.defaultDescription.en,
+    title: socialTitle,
+    description: socialDescription,
     type: "website",
-    url: "https://metron-consulting.vercel.app",
+    url: officialSite,
     locale: "ar_SA",
     alternateLocale: "en_US",
-    siteName: themeConfig.seo.siteName.en,
+    siteName: "Metron Consulting",
     images: [
       {
-        url: "/assets/brand/logo-horizontal.svg",
-        alt: "Metron Professional Consulting",
+        url: "/icon.png",
+        width: 512,
+        height: 512,
+        type: "image/png",
+        alt: "Metron Consulting",
       },
     ],
   },
   twitter: {
-    card: "summary_large_image",
-    title: "Metron | ميترون للاستشارات المهنية",
-    description: themeConfig.seo.defaultDescription.en,
-    images: ["/assets/brand/logo-horizontal.svg"],
+    card: "summary",
+    title: socialTitle,
+    description: socialDescription,
+    images: [
+      {
+        url: "/icon.png",
+        width: 512,
+        height: 512,
+        alt: "Metron Consulting",
+      },
+    ],
   },
   robots: { index: true, follow: true },
   icons: {
@@ -122,8 +136,8 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "ProfessionalService",
               name: "Metron Professional Consulting",
-              url: "https://metron-consulting.vercel.app",
-              logo: "https://metron-consulting.vercel.app/assets/brand/logo-horizontal.svg",
+              url: officialSite,
+              logo: `${officialSite}/assets/brand/logo-horizontal.svg`,
               email: themeConfig.contact.email,
               telephone: themeConfig.contact.phone,
               address: {
