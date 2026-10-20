@@ -62,6 +62,48 @@ export const metadata: Metadata = {
     images: ["/assets/brand/logo-horizontal.svg"],
   },
   robots: { index: true, follow: true },
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      {
+        url: "/icon.png",
+        type: "image/png",
+        sizes: "512x512",
+        media: "(prefers-color-scheme: light)",
+      },
+      {
+        url: "/icons/metron-dark-512.png",
+        type: "image/png",
+        sizes: "512x512",
+        media: "(prefers-color-scheme: dark)",
+      },
+      {
+        url: "/icons/metron-light-32.png",
+        type: "image/png",
+        sizes: "32x32",
+        media: "(prefers-color-scheme: light)",
+      },
+      {
+        url: "/icons/metron-dark-32.png",
+        type: "image/png",
+        sizes: "32x32",
+        media: "(prefers-color-scheme: dark)",
+      },
+      {
+        url: "/icons/metron-light-16.png",
+        type: "image/png",
+        sizes: "16x16",
+        media: "(prefers-color-scheme: light)",
+      },
+      {
+        url: "/icons/metron-dark-16.png",
+        type: "image/png",
+        sizes: "16x16",
+        media: "(prefers-color-scheme: dark)",
+      },
+    ],
+    apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
+  },
 };
 
 export default function RootLayout({
