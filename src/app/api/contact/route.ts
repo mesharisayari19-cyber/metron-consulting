@@ -1,81 +1,93 @@
 import { NextResponse } from "next/server";
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
+import { buildContactEmail } from "@/lib/contact-email";
 import {
-  CONTACT_TO_EMAIL,
+  isHoneypotTriggered,
   parseContactFormPayload,
   validateContactForm,
 } from "@/lib/contact-form";
+import {
+  checkContactRateLimit,
+  contactClientKey,
+  isDeployedContactEnvironment,
+} from "@/lib/contact-rate-limit";
+import { readContactRequest } from "@/lib/contact-request";
+
+type ContactErrorCode = "invalid_payload" | "server_config" | "send_failed" | "rate_limited";
+
+function contactError(error: ContactErrorCode, status: number) {
+  return NextResponse.json({ error }, { status });
+}
+
+function configuredMailbox(name: "CONTACT_FROM_EMAIL" | "CONTACT_TO_EMAIL"): string | null {
+  const value = process.env[name]?.trim();
+  if (!value || value.length > 320 || /[\r\n]/.test(value)) return null;
+  return value;
+}
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
-    const payload = parseContactFormPayload(body);
+    const decision = await checkContactRateLimit(contactClientKey(request));
+    if (decision === "limit") {
+      console.warn("Contact form rejected: rate_limited");
+      return contactError("rate_limited", 429);
+    }
+    if (decision === "unavailable") {
+      console.error("Contact form: shared rate limiter is not configured.");
+      if (isDeployedContactEnvironment()) {
+        return contactError("server_config", 503);
+      }
+    }
 
+    const body = await readContactRequest(request);
+    if (!body.ok) {
+      console.warn(`Contact form rejected: ${body.reason}`);
+      return contactError("invalid_payload", body.status);
+    }
+
+    const payload = parseContactFormPayload(body.value);
     if (!payload || !validateContactForm(payload)) {
-      return NextResponse.json({ error: "invalid_payload" }, { status: 400 });
+      console.warn("Contact form rejected: invalid_payload");
+      return contactError("invalid_payload", 400);
+    }
+    if (isHoneypotTriggered(payload)) {
+      console.warn("Contact form rejected: honeypot");
+      return contactError("invalid_payload", 400);
     }
 
-    const smtpHost = process.env.SMTP_HOST;
-    const smtpUser = process.env.SMTP_USER;
-    const smtpPass = process.env.SMTP_PASS;
-
-    if (!smtpHost || !smtpUser || !smtpPass) {
-      console.error("Contact form: SMTP environment variables are not configured.");
-      return NextResponse.json({ error: "server_config" }, { status: 500 });
+    const apiKey = process.env.RESEND_API_KEY?.trim();
+    const from = configuredMailbox("CONTACT_FROM_EMAIL");
+    const to = configuredMailbox("CONTACT_TO_EMAIL");
+    if (!apiKey || !from || !to) {
+      console.error("Contact form: email environment variables are not configured.");
+      return contactError("server_config", 500);
     }
 
-    const smtpPort = Number(process.env.SMTP_PORT || "587");
-    const smtpSecure = process.env.SMTP_SECURE === "true" || smtpPort === 465;
-    const smtpFrom = process.env.SMTP_FROM || smtpUser;
-    const recipient = process.env.CONTACT_TO_EMAIL || CONTACT_TO_EMAIL;
-
-    const transporter = nodemailer.createTransport({
-      host: smtpHost,
-      port: smtpPort,
-      secure: smtpSecure,
-      auth: {
-        user: smtpUser,
-        pass: smtpPass,
-      },
-    });
-
-    const phoneLine = payload.phone || "—";
-
-    await transporter.sendMail({
-      from: smtpFrom,
-      to: recipient,
+    const email = buildContactEmail(payload);
+    const resend = new Resend(apiKey);
+    const { data, error } = await resend.emails.send({
+      from,
+      to: [to],
       replyTo: payload.email,
-      subject: `رسالة جديدة من موقع ميترون — ${payload.name}`,
-      text: [
-        `الاسم: ${payload.name}`,
-        `البريد الإلكتروني: ${payload.email}`,
-        `رقم الجوال: ${phoneLine}`,
-        "",
-        "الرسالة:",
-        payload.message,
-      ].join("\n"),
-      html: `
-        <h2>رسالة جديدة من نموذج التواصل</h2>
-        <p><strong>الاسم:</strong> ${escapeHtml(payload.name)}</p>
-        <p><strong>البريد الإلكتروني:</strong> ${escapeHtml(payload.email)}</p>
-        <p><strong>رقم الجوال:</strong> ${escapeHtml(phoneLine)}</p>
-        <p><strong>الرسالة:</strong></p>
-        <p>${escapeHtml(payload.message).replace(/\n/g, "<br />")}</p>
-      `,
+      subject: email.subject,
+      text: email.text,
+      html: email.html,
     });
 
+    if (error || !data?.id) {
+      console.error("Contact form: email provider rejected the message.", {
+        name: error?.name ?? "missing_id",
+        statusCode: error?.statusCode ?? null,
+      });
+      return contactError("send_failed", 502);
+    }
+
+    console.info("Contact form accepted by email provider.");
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error("Contact form send failed:", error);
-    return NextResponse.json({ error: "send_failed" }, { status: 500 });
+    console.error("Contact form send failed.", {
+      name: error instanceof Error ? error.name : "Error",
+    });
+    return contactError("send_failed", 500);
   }
-}
-
-function escapeHtml(value: string): string {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
 }

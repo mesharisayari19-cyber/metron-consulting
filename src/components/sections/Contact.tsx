@@ -3,17 +3,21 @@
 import { ICON_STROKE, brandIcons } from "@branding/icons";
 import { themeConfig } from "@theme/theme.config";
 import { motion } from "framer-motion";
-import { useState, type FormEvent } from "react";
+import { useRef, useState, type FormEvent } from "react";
 import type { CountryCode } from "libphonenumber-js";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Button } from "@/components/ui/Button";
 import { PhoneField } from "@/components/ui/PhoneField";
 import { useLocale } from "@/context/LocaleContext";
-import { isAllowedNameText, isValidPersonName, toE164 } from "@/lib/contact-form";
+import {
+  CONTACT_FIELD_LIMITS,
+  isAllowedNameText,
+  isValidContactEmail,
+  isValidPersonName,
+  toE164,
+} from "@/lib/contact-form";
 
 type FormStatus = "idle" | "sending" | "success" | "error";
-
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const contactLinkClass =
   "flex min-w-0 flex-col items-center justify-center gap-2 rounded-lg border border-brand-100 bg-brand-50 px-3 py-4 text-center text-brand-700 transition-colors duration-200 ease-out hover:border-brand-200 hover:bg-brand-100/70 hover:text-brand-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2";
@@ -41,6 +45,7 @@ function ContactValue({ value }: { value: string }) {
 
 export function Contact() {
   const { t, locale } = useLocale();
+  const sendingRef = useRef(false);
   const [status, setStatus] = useState<FormStatus>("idle");
   const [name, setName] = useState("");
   const [nameError, setNameError] = useState("");
@@ -57,6 +62,7 @@ export function Contact() {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (sendingRef.current) return;
     setStatus("idle");
 
     const form = e.currentTarget;
@@ -64,6 +70,7 @@ export function Contact() {
     const nameValue = name.trim();
     const email = String(formData.get("email") ?? "").trim();
     const message = String(formData.get("message") ?? "").trim();
+    const companyWebsite = String(formData.get("companyWebsite") ?? "").trim();
     const phoneValue = phoneNational.trim() ? toE164(phoneCountry, phoneNational) : "";
 
     let invalid = false;
@@ -82,13 +89,18 @@ export function Contact() {
       setPhoneError("");
     }
 
-    if (!email || !message || !EMAIL_REGEX.test(email)) {
+    if (
+      !isValidContactEmail(email) ||
+      message.length < 5 ||
+      message.length > CONTACT_FIELD_LIMITS.message
+    ) {
       setStatus("error");
       invalid = true;
     }
 
     if (invalid || (phoneNational.trim() && !phoneValue)) return;
 
+    sendingRef.current = true;
     setStatus("sending");
 
     try {
@@ -102,10 +114,12 @@ export function Contact() {
           email,
           phone: phoneValue ?? "",
           message,
+          companyWebsite,
         }),
       });
+      const result = (await response.json().catch(() => null)) as { success?: boolean } | null;
 
-      if (!response.ok) {
+      if (!response.ok || result?.success !== true) {
         setStatus("error");
         return;
       }
@@ -119,6 +133,8 @@ export function Contact() {
       setStatus("success");
     } catch {
       setStatus("error");
+    } finally {
+      sendingRef.current = false;
     }
   };
 
@@ -146,6 +162,7 @@ export function Contact() {
                 type="text"
                 required
                 minLength={2}
+                maxLength={CONTACT_FIELD_LIMITS.name}
                 autoComplete="name"
                 value={name}
                 aria-invalid={nameError ? true : undefined}
@@ -187,6 +204,7 @@ export function Contact() {
                 name="email"
                 type="email"
                 required
+                maxLength={CONTACT_FIELD_LIMITS.email}
                 autoComplete="email"
                 dir="ltr"
                 className="w-full px-4 py-3.5 rounded-md border border-surface-300 bg-white focus:border-brand-500 focus:ring-2 focus:ring-brand-500/15 outline-none transition-all text-start"
@@ -214,7 +232,7 @@ export function Contact() {
                 onClearError={() => setPhoneError("")}
               />
             </div>
-            <div>
+            <div className="relative">
               <label htmlFor="message" className="block text-sm font-semibold text-brand-900 mb-2">
                 {t.contact.form.message}
               </label>
@@ -224,8 +242,20 @@ export function Contact() {
                 rows={6}
                 required
                 minLength={5}
+                maxLength={CONTACT_FIELD_LIMITS.message}
                 className="w-full px-4 py-3.5 rounded-md border border-surface-300 bg-white focus:border-brand-500 focus:ring-2 focus:ring-brand-500/15 outline-none transition-all resize-none"
               />
+              <div className="absolute top-0 h-0 w-0 overflow-hidden" aria-hidden="true">
+                <label htmlFor="companyWebsite">Company website</label>
+                <input
+                  id="companyWebsite"
+                  name="companyWebsite"
+                  type="text"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  defaultValue=""
+                />
+              </div>
             </div>
 
             {status === "success" ? (

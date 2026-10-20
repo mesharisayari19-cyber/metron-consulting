@@ -6,7 +6,14 @@ import {
   type CountryCode,
 } from "libphonenumber-js";
 
-export const CONTACT_TO_EMAIL = "contact@metron.sa";
+export const CONTACT_FIELD_LIMITS = {
+  name: 100,
+  email: 254,
+  phone: 20,
+  message: 3000,
+} as const;
+
+export const CONTACT_MAX_BODY_BYTES = 10 * 1024;
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_TYPING = /^\+?[\d\s()-]*$/;
@@ -25,6 +32,7 @@ export interface ContactFormPayload {
   email: string;
   phone: string;
   message: string;
+  companyWebsite: string;
 }
 
 export interface DialCountry {
@@ -48,9 +56,15 @@ export function isAllowedNameText(value: string): boolean {
 
 export function isValidPersonName(value: string): boolean {
   const name = value.trim();
-  if (name.length < 2) return false;
+  if (name.length < 2 || name.length > CONTACT_FIELD_LIMITS.name) return false;
   if (!isAllowedNameText(name)) return false;
   return /\p{L}/u.test(name);
+}
+
+export function isValidContactEmail(value: string): boolean {
+  if (!value || value.length > CONTACT_FIELD_LIMITS.email) return false;
+  if (/[\u0000-\u001F\u007F<>]/.test(value)) return false;
+  return EMAIL_REGEX.test(value);
 }
 
 export function isAllowedPhoneTyping(value: string): boolean {
@@ -116,23 +130,39 @@ export function listDialCountries(locale: "ar" | "en"): DialCountry[] {
   return countries;
 }
 
+function readTrimmedString(value: unknown): string | null {
+  if (typeof value !== "string") return null;
+  return value.trim();
+}
+
 export function parseContactFormPayload(body: unknown): ContactFormPayload | null {
-  if (!body || typeof body !== "object") return null;
+  if (!body || typeof body !== "object" || Array.isArray(body)) return null;
 
   const data = body as Record<string, unknown>;
+  const name = readTrimmedString(data.name);
+  const email = readTrimmedString(data.email);
+  const message = readTrimmedString(data.message);
+  const phone = data.phone === undefined || data.phone === null ? "" : readTrimmedString(data.phone);
+  const companyWebsite =
+    data.companyWebsite === undefined || data.companyWebsite === null
+      ? ""
+      : readTrimmedString(data.companyWebsite);
 
-  return {
-    name: String(data.name ?? "").trim(),
-    email: String(data.email ?? "").trim(),
-    phone: String(data.phone ?? "").trim(),
-    message: String(data.message ?? "").trim(),
-  };
+  if (name === null || email === null || message === null || phone === null || companyWebsite === null) {
+    return null;
+  }
+
+  return { name, email, phone, message, companyWebsite };
+}
+
+export function isHoneypotTriggered(payload: ContactFormPayload): boolean {
+  return payload.companyWebsite.length > 0;
 }
 
 export function validateContactForm(payload: ContactFormPayload): boolean {
   if (!isValidPersonName(payload.name)) return false;
-  if (!payload.email || !EMAIL_REGEX.test(payload.email)) return false;
-  if (!isValidOptionalPhone(payload.phone)) return false;
-  if (!payload.message || payload.message.length < 5) return false;
+  if (!isValidContactEmail(payload.email)) return false;
+  if (payload.phone.length > CONTACT_FIELD_LIMITS.phone || !isValidOptionalPhone(payload.phone)) return false;
+  if (payload.message.length < 5 || payload.message.length > CONTACT_FIELD_LIMITS.message) return false;
   return true;
 }
